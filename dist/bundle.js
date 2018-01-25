@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "dist/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 18);
+/******/ 	return __webpack_require__(__webpack_require__.s = 20);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -146,12 +146,12 @@ function equals(a, b) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__gl_matrix_common__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__gl_matrix_mat2__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__gl_matrix_mat2d__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__gl_matrix_mat2__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__gl_matrix_mat2d__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gl_matrix_mat3__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gl_matrix_mat4__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__gl_matrix_quat__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__gl_matrix_vec2__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gl_matrix_mat4__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__gl_matrix_quat__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__gl_matrix_vec2__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__gl_matrix_vec3__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__gl_matrix_vec4__ = __webpack_require__(7);
 /* unused harmony reexport glMatrix */
@@ -160,9 +160,9 @@ function equals(a, b) {
 /* unused harmony reexport mat3 */
 /* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_4__gl_matrix_mat4__; });
 /* unused harmony reexport quat */
-/* unused harmony reexport vec2 */
-/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_7__gl_matrix_vec3__; });
-/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_8__gl_matrix_vec4__; });
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_6__gl_matrix_vec2__; });
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_7__gl_matrix_vec3__; });
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_8__gl_matrix_vec4__; });
 /**
  * @fileoverview gl-matrix - High performance matrix and vector operations
  * @author Brandon Jones
@@ -2615,6 +2615,66 @@ const forEach = (function() {
 
 /***/ }),
 /* 8 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__globals__ = __webpack_require__(2);
+
+class Drawable {
+    constructor() {
+        this.count = 0;
+        this.idxBound = false;
+        this.posBound = false;
+        this.norBound = false;
+    }
+    destory() {
+        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufIdx);
+        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufPos);
+        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufNor);
+    }
+    generateIdx() {
+        this.idxBound = true;
+        this.bufIdx = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
+    }
+    generatePos() {
+        this.posBound = true;
+        this.bufPos = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
+    }
+    generateNor() {
+        this.norBound = true;
+        this.bufNor = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
+    }
+    bindIdx() {
+        if (this.idxBound) {
+            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ELEMENT_ARRAY_BUFFER, this.bufIdx);
+        }
+        return this.idxBound;
+    }
+    bindPos() {
+        if (this.posBound) {
+            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ARRAY_BUFFER, this.bufPos);
+        }
+        return this.posBound;
+    }
+    bindNor() {
+        if (this.norBound) {
+            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ARRAY_BUFFER, this.bufNor);
+        }
+        return this.norBound;
+    }
+    elemCount() {
+        return this.count;
+    }
+    drawMode() {
+        return __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].TRIANGLES;
+    }
+}
+;
+/* harmony default export */ __webpack_exports__["a"] = (Drawable);
+
+
+/***/ }),
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2622,8 +2682,8 @@ const forEach = (function() {
 
 module.exports = createFilteredVector
 
-var cubicHermite = __webpack_require__(37)
-var bsearch = __webpack_require__(9)
+var cubicHermite = __webpack_require__(39)
+var bsearch = __webpack_require__(10)
 
 function clamp(lo, hi, x) {
   return Math.min(hi, Math.max(lo, x))
@@ -2912,7 +2972,7 @@ function createFilteredVector(initState, initVelocity, initTime) {
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2979,7 +3039,7 @@ module.exports = {
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports) {
 
 module.exports = cross;
@@ -3003,7 +3063,7 @@ function cross(out, a, b) {
 }
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports) {
 
 module.exports = dot;
@@ -3020,10 +3080,10 @@ function dot(a, b) {
 }
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var identity = __webpack_require__(13);
+var identity = __webpack_require__(14);
 
 module.exports = lookAt;
 
@@ -3115,7 +3175,7 @@ function lookAt(out, eye, center, up) {
 };
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports) {
 
 module.exports = identity;
@@ -3147,7 +3207,7 @@ function identity(out) {
 };
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports) {
 
 module.exports = translate;
@@ -3190,7 +3250,7 @@ function translate(out, a, v) {
 };
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports) {
 
 module.exports = create;
@@ -3222,7 +3282,7 @@ function create() {
 };
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports) {
 
 module.exports = scale;
@@ -3258,7 +3318,7 @@ function scale(out, a, v) {
 };
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports) {
 
 module.exports = determinant;
@@ -3293,21 +3353,28 @@ function determinant(a) {
 };
 
 /***/ }),
-/* 18 */
+/* 19 */
+/***/ (function(module, exports) {
+
+module.exports = "#version 300 es\r\nprecision highp float;\r\nprecision mediump int;\r\n\r\nuniform mat4 u_Model;       // The matrix that defines the transformation of the\r\n                            // object we're rendering. In this assignment,\r\n                            // this will be the result of traversing your scene graph.\r\n\r\nuniform mat4 u_ModelInvTr;  // The inverse transpose of the model matrix.\r\n                            // This allows us to transform the object's normals properly\r\n                            // if the object has been non-uniformly scaled.\r\n\r\nuniform mat4 u_ViewProj;    // The matrix that defines the camera's transformation.\r\n                            // We've written a static matrix for you to use for HW2,\r\n                            // but in HW3 you'll have to generate one yourself\r\nuniform float u_Timer;\r\nuniform float u_TimeScale;\r\nuniform float u_FinalNoiseScale;\r\n\r\n// uniform arraies used in noise3d\r\nuniform vec3 u_Grad3[12];\r\nuniform int u_Perm[512];\r\n\r\n\r\nin vec4 vs_Pos;             // The array of vertex positions passed to the shader\r\n\r\nin vec4 vs_Nor;             // The array of vertex normals passed to the shader\r\n\r\nin vec4 vs_Col;             // The array of vertex colors passed to the shader.\r\n\r\nout vec4 fs_Nor;            // The array of normals that has been transformed by u_ModelInvTr. This is implicitly passed to the fragment shader.\r\nout vec4 fs_LightVec;       // The direction in which our virtual light lies, relative to each vertex. This is implicitly passed to the fragment shader.\r\nout vec4 fs_Col;            // The color of each vertex. This is implicitly passed to the fragment shader.\r\n\r\nout vec4 fs_mPos;           // vertex model space (world space) position\r\n\r\n\r\nconst vec4 lightPos = vec4(5, 5, 3, 1); //The position of our virtual light, which is used to compute the shading of\r\n                                        //the geometry in the fragment shader.\r\n\r\n\r\n\r\n\r\nfloat fade(float t) {\r\n    return t*t*t*(t*(t*6.0 - 15.0) + 10.0);\r\n}\r\n\r\n// Classic Perlin noise, 3D version\r\n// refer from paper http://webstaff.itn.liu.se/~stegu/simplexnoise/simplexnoise.pdf\r\nfloat noise3d(float x, float y, float z) {\r\n    // Find unit grid cell containing point\r\n    int X = int(floor(x));\r\n    int Y = int(floor(y));\r\n    int Z = int(floor(z));\r\n\r\n    // Get relative xyz coordinates of point within that cell\r\n    x = x - float(X);\r\n    y = y - float(Y);\r\n    z = z - float(Z);\r\n\r\n    // Wrap the integer cells at 255 (smaller integer period can be introduced here)\r\n    X = X & 255;\r\n    Y = Y & 255;\r\n    Z = Z & 255;\r\n\r\n    // Calculate a set of eight hashed gradient indices\r\n    int gi000 = u_Perm[X+u_Perm[Y+u_Perm[Z]]] % 12;\r\n    int gi001 = u_Perm[X+u_Perm[Y+u_Perm[Z+1]]] % 12;\r\n    int gi010 = u_Perm[X+u_Perm[Y+1+u_Perm[Z]]] % 12; \r\n    int gi011 = u_Perm[X+u_Perm[Y+1+u_Perm[Z+1]]] % 12;\r\n    int gi100 = u_Perm[X+1+u_Perm[Y+u_Perm[Z]]] % 12;\r\n    int gi101 = u_Perm[X+1+u_Perm[Y+u_Perm[Z+1]]] % 12;\r\n    int gi110 = u_Perm[X+1+u_Perm[Y+1+u_Perm[Z]]] % 12;\r\n    int gi111 = u_Perm[X+1+u_Perm[Y+1+u_Perm[Z+1]]] % 12;\r\n\r\n    // The gradients of each corner are now:\r\n    // g000 = grad3[gi000];\r\n    // g001 = grad3[gi001];\r\n    // g010 = grad3[gi010];\r\n    // g011 = grad3[gi011];\r\n    // g100 = grad3[gi100];\r\n    // g101 = grad3[gi101];\r\n    // g110 = grad3[gi110];\r\n    // g111 = grad3[gi111];\r\n\r\n    // Calculate noise contributions from each of the eight corners\r\n    float n000= dot(u_Grad3[gi000], vec3(x, y, z));\r\n    float n100= dot(u_Grad3[gi100], vec3(x-1.0, y, z));\r\n    float n010= dot(u_Grad3[gi010], vec3(x, y-1.0, z));\r\n    float n110= dot(u_Grad3[gi110], vec3(x-1.0, y-1.0, z));\r\n    float n001= dot(u_Grad3[gi001], vec3(x, y, z-1.0));\r\n    float n101= dot(u_Grad3[gi101], vec3(x-1.0, y, z-1.0));\r\n    float n011= dot(u_Grad3[gi011], vec3(x, y-1.0, z-1.0));\r\n    float n111= dot(u_Grad3[gi111], vec3(x-1.0, y-1.0, z-1.0));\r\n\r\n    // Compute the fade curve value for each of x, y, z\r\n    float u = fade(x);\r\n    float v = fade(y);\r\n    float w = fade(z);\r\n\r\n    // Interpolate along x the contributions from each of the corners\r\n    float nx00 = mix(n000, n100, u);\r\n    float nx01 = mix(n001, n101, u);\r\n    float nx10 = mix(n010, n110, u);\r\n    float nx11 = mix(n011, n111, u);\r\n\r\n    // Interpolate the four results along y\r\n    float nxy0 = mix(nx00, nx10, v);\r\n    float nxy1 = mix(nx01, nx11, v);\r\n\r\n    // Interpolate the two last results along z\r\n    float nxyz = mix(nxy0, nxy1, w);\r\n    return nxyz;\r\n}\r\n\r\n\r\n\r\n//    Cubic Hermine Curve.  Same as SmoothStep().  As used by Perlin in Original Noise.\r\n//    3x^2-2x^3\r\nfloat Interpolation_C1( float x ) { return x * x * (3.0 - 2.0 * x); }\r\n\r\n//    Quintic Hermite Curve.  As used by Perlin in Improved Noise.  http://mrl.nyu.edu/~perlin/paper445.pdf\r\n//    6x^5-15x^4+10x^3\r\nfloat Interpolation_C2( float x ) { return x * x * x * (x * (x * 6.0 - 15.0) + 10.0); }\r\n\r\n//    Faster than Perlin Quintic.  Not quite as good shape.\r\n//    7x^3-7x^4+x^7\r\nfloat Interpolation_C2_Fast( float x ) { float x3 = x*x*x; return ( 7.0 + ( x3 - 7.0 ) * x ) * x3; }\r\n \r\n//    C3 Interpolation function.  If anyone ever needs it... : )\r\n//    25x^4-48x^5+25x^6-x^10\r\nfloat Interpolation_C3( float x ) { float xsq = x*x; float xsqsq = xsq*xsq; return xsqsq * ( 25.0 - 48.0 * x + xsq * ( 25.0 - xsqsq ) ); }\r\n\r\n\r\n// ( 1.0 - x*x )^2 ( Used by Humus for lighting falloff in Just Cause 2. GPUPro 1 )\r\nfloat Falloff_Xsq_C1( float xsq ) { xsq = 1.0 - xsq; return xsq*xsq; }\r\n// ( 1.0 - x*x )^3. NOTE: 2nd derivative is 0.0 at x=1.0, but non-zero at x=0.0\r\nfloat Falloff_Xsq_C2( float xsq ) { xsq = 1.0 - xsq; return xsq*xsq*xsq; }\r\n \r\n\r\n\r\n\r\nvoid main()\r\n{\r\n    fs_Col = vs_Col;                         // Pass the vertex colors to the fragment shader for interpolation\r\n\r\n    mat3 invTranspose = mat3(u_ModelInvTr);\r\n    fs_Nor = vec4(invTranspose * vec3(vs_Nor), 0);          // Pass the vertex normals to the fragment shader for interpolation.\r\n                                                            // Transform the geometry's normals by the inverse transpose of the\r\n                                                            // model matrix. This is necessary to ensure the normals remain\r\n                                                            // perpendicular to the surface after the surface is transformed by\r\n                                                            // the model matrix.\r\n\r\n    \r\n\r\n    // Generate 3d perlin noise\r\n    float noiseScale = 0.5;\r\n\r\n    float summedNoise = 0.0;\r\n    float amplitude = 0.6;\r\n    for(int i = 2; i <= 16; i *= 2) {\r\n\r\n        vec3 xyz = float(i) * vs_Pos.xyz;\r\n\r\n        xyz = vec3(cos(3.14159/3.0 * float(i)) * xyz.x - sin(3.14159/3.0 * float(i)) * xyz.y + cos(3.14159/3.0 * float(i)) * xyz.z, \r\n                   sin(3.14159/3.0 * float(i)) * xyz.x + cos(3.14159/3.0 * float(i)) * xyz.y - sin(3.14159/3.0 * float(i)) * xyz.z,\r\n                   sin(3.14159/3.0 * float(i)) * xyz.x - sin(3.14159/3.0 * float(i)) * xyz.y + sin(3.14159/3.0 * float(i)) * xyz.z);\r\n        \r\n        // float timeScale = 0.0;\r\n        float timeOffset = cos(u_Timer * 3.14159 * u_TimeScale);\r\n        \r\n        float perlin3d = abs(noise3d(noiseScale * xyz.x + timeOffset, \r\n                                     noiseScale * xyz.y + timeOffset, \r\n                                     noiseScale * xyz.z + timeOffset));\r\n        summedNoise += perlin3d * amplitude;\r\n        amplitude *= 0.5;\r\n    }\r\n\r\n    // summedNoise = Interpolation_C3(summedNoise);\r\n\r\n    vec4 modelposition = u_Model * (vs_Pos + u_FinalNoiseScale * summedNoise * vs_Nor);   // Temporarily store the transformed vertex positions for use below\r\n\r\n    fs_mPos = modelposition;\r\n\r\n    fs_LightVec = lightPos - modelposition;  // Compute the direction in which the light source lies\r\n\r\n    gl_Position = u_ViewProj * modelposition;// gl_Position is a built-in variable of OpenGL which is\r\n                                             // used to render the final positions of the geometry's vertices\r\n}\r\n"
+
+/***/ }),
+/* 20 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_stats_js__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_stats_js__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_stats_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_stats_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_dat_gui__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_dat_gui__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_dat_gui___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_dat_gui__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__geometry_Icosphere__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__rendering_gl_OpenGLRenderer__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Camera__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__globals__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__rendering_gl_ShaderProgram__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__geometry_Icosphere__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__geometry_Square__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__rendering_gl_OpenGLRenderer__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Camera__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__globals__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__ = __webpack_require__(66);
 
 
 
@@ -3316,15 +3383,41 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+
+// const SQUARE = 'Square';
+// const ICOSPHERE = 'Icosphere';
+// const CUBE = 'Cube';
+// const LAMBERT = 'Lambert';
+// const CUSTOM = 'Custom';
+// const PERLIN = 'Perlin';
+// const PLANET = 'Planet';
 // Define an object with application parameters and button callbacks
+// This will be referred to by dat.GUI's functions that add GUI elements.
 const controls = {
     tesselations: 5,
-    'Load Scene': loadScene,
+    speed: 1.0,
+    noiseScale: 1.2,
+    isDebugPerlin: false,
 };
 let icosphere;
+let icosphere_out;
+let square;
+// let cube : Cube;
+let speed;
+let noiseScale;
+let isDebugPerlin;
 function loadScene() {
-    icosphere = new __WEBPACK_IMPORTED_MODULE_3__geometry_Icosphere__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec3 */].fromValues(0, 0, 0), 1, controls.tesselations);
+    icosphere = new __WEBPACK_IMPORTED_MODULE_3__geometry_Icosphere__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(0, 0, 0), 1, controls.tesselations);
     icosphere.create();
+    icosphere_out = new __WEBPACK_IMPORTED_MODULE_3__geometry_Icosphere__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(0, 0, 0), 0.7, controls.tesselations);
+    icosphere_out.create();
+    square = new __WEBPACK_IMPORTED_MODULE_4__geometry_Square__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(0, 0, 0));
+    square.create();
+    speed = controls.speed;
+    noiseScale = controls.noiseScale;
+    isDebugPerlin = controls.isDebugPerlin;
+    //cube = new Cube(vec3.fromValues(0, 0, 0));
+    //cube.create();
 }
 function main() {
     // Initial display for framerate
@@ -3334,10 +3427,6 @@ function main() {
     stats.domElement.style.left = '0px';
     stats.domElement.style.top = '0px';
     document.body.appendChild(stats.domElement);
-    // Add controls to the gui
-    const gui = new __WEBPACK_IMPORTED_MODULE_2_dat_gui__["GUI"]();
-    gui.add(controls, 'tesselations', 0, 8).step(1);
-    gui.add(controls, 'Load Scene');
     // get canvas and webgl context
     const canvas = document.getElementById('canvas');
     const gl = canvas.getContext('webgl2');
@@ -3346,26 +3435,157 @@ function main() {
     }
     // `setGL` is a function imported above which sets the value of `gl` in the `globals.ts` module.
     // Later, we can import `gl` from `globals.ts` to access it
-    Object(__WEBPACK_IMPORTED_MODULE_6__globals__["b" /* setGL */])(gl);
+    Object(__WEBPACK_IMPORTED_MODULE_7__globals__["b" /* setGL */])(gl);
     // Initial call to load scene
     loadScene();
-    const camera = new __WEBPACK_IMPORTED_MODULE_5__Camera__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec3 */].fromValues(0, 0, 5), __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec3 */].fromValues(0, 0, 0));
-    const renderer = new __WEBPACK_IMPORTED_MODULE_4__rendering_gl_OpenGLRenderer__["a" /* default */](canvas);
+    // Add controls to the gui
+    const gui = new __WEBPACK_IMPORTED_MODULE_2_dat_gui__["GUI"]();
+    // set which geometry to render
+    // var geometryToRender : any;
+    // function setGeometry(){
+    //   switch(controls.geometry) {
+    //     case SQUARE:
+    //       geometryToRender = square;
+    //       break;
+    //     case ICOSPHERE:
+    //       geometryToRender = icosphere;
+    //       break;
+    //     case CUBE:
+    //       geometryToRender = cube;
+    //       break;
+    //   }
+    // }
+    // setGeometry();
+    // set icosphere tesselation degree
+    function setTesselation() {
+        icosphere = new __WEBPACK_IMPORTED_MODULE_3__geometry_Icosphere__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(0, 0, 0), 1, controls.tesselations);
+        icosphere.create();
+        icosphere_out = new __WEBPACK_IMPORTED_MODULE_3__geometry_Icosphere__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(0, 0, 0), 1, controls.tesselations);
+        icosphere_out.create();
+    }
+    function setSpeed() {
+        speed = controls.speed;
+    }
+    // GUI
+    gui.add(controls, 'tesselations', 0, 8).step(1).onChange(setTesselation);
+    gui.add(controls, 'speed', 1, 4).step(1).onChange(setSpeed);
+    //gui.add(controls, 'geometry', [SQUARE, ICOSPHERE, CUBE]).onChange(setGeometry);
+    //gui.add(controls, 'Load Scene');
+    const camera = new __WEBPACK_IMPORTED_MODULE_6__Camera__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(0, 0, 5), __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(0, 0, 0));
+    // Open GL Renderer
+    const renderer = new __WEBPACK_IMPORTED_MODULE_5__rendering_gl_OpenGLRenderer__["a" /* default */](canvas);
     renderer.setClearColor(0.2, 0.2, 0.2, 1);
     gl.enable(gl.DEPTH_TEST);
-    const lambert = new __WEBPACK_IMPORTED_MODULE_7__rendering_gl_ShaderProgram__["b" /* default */]([
-        new __WEBPACK_IMPORTED_MODULE_7__rendering_gl_ShaderProgram__["a" /* Shader */](gl.VERTEX_SHADER, __webpack_require__(65)),
-        new __WEBPACK_IMPORTED_MODULE_7__rendering_gl_ShaderProgram__["a" /* Shader */](gl.FRAGMENT_SHADER, __webpack_require__(66)),
+    // // setup lambert shader
+    // const lambert = new ShaderProgram([
+    //   new Shader(gl.VERTEX_SHADER, require('./shaders/lambert-vert.glsl')),
+    //   new Shader(gl.FRAGMENT_SHADER, require('./shaders/lambert-frag.glsl')),
+    // ]);
+    // // setup custom shader
+    // const custom = new ShaderProgram([
+    //   new Shader(gl.VERTEX_SHADER, require('./shaders/custom-vert.glsl')),
+    //   new Shader(gl.FRAGMENT_SHADER, require('./shaders/custom-frag.glsl')),
+    // ]);
+    // setup perlin shader
+    const perlin = new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["b" /* default */]([
+        new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.VERTEX_SHADER, __webpack_require__(67)),
+        new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.FRAGMENT_SHADER, __webpack_require__(68)),
     ]);
+    perlin.setDimensions(__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].fromValues(1.0, 1.0));
+    // setup planet shader
+    const planet = new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["b" /* default */]([
+        new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.VERTEX_SHADER, __webpack_require__(19)),
+        new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.FRAGMENT_SHADER, __webpack_require__(69)),
+    ]);
+    planet.setNoise3d(0.0, 0.3);
+    const planet_out = new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["b" /* default */]([
+        new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.VERTEX_SHADER, __webpack_require__(19)),
+        new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.FRAGMENT_SHADER, __webpack_require__(70)),
+    ]);
+    planet_out.setNoise3d(0.2, noiseScale);
+    planet_out.setGeometryColor(__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["d" /* vec4 */].fromValues(0.0, 1.0, 0.0, 1.0));
+    // setup background shader
+    const background = new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["b" /* default */]([
+        new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.VERTEX_SHADER, __webpack_require__(71)),
+        new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.FRAGMENT_SHADER, __webpack_require__(72)),
+    ]);
+    background.setDimensions(__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].fromValues(1.0, 1.0));
+    // set uniform color for lambert shader
+    // function setColor(){
+    //   lambert.setGeometryColor(vec4.fromValues(controls.color[0] / 255.0, controls.color[1] / 255.0, controls.color[2] / 255.0, 1.0));
+    //   custom.setGeometryColor(vec4.fromValues(controls.color[0] / 255.0, controls.color[1] / 255.0, controls.color[2] / 255.0, 1.0));    
+    //   perlin.setGeometryColor(vec4.fromValues(controls.color[0] / 255.0, controls.color[1] / 255.0, controls.color[2] / 255.0, 1.0));    
+    //   planet.setGeometryColor(vec4.fromValues(controls.color[0] / 255.0, controls.color[1] / 255.0, controls.color[2] / 255.0, 1.0));    
+    // }
+    //gui.addColor(controls, 'color').onChange(setColor);
+    //setColor();
+    function setNoiseScale() {
+        planet_out.setNoiseScale(controls.noiseScale);
+    }
+    gui.add(controls, 'noiseScale', 0.8, 2.0).step(0.2).onChange(setNoiseScale);
+    function setDebugPerlin() {
+        isDebugPerlin = controls.isDebugPerlin;
+    }
+    gui.add(controls, 'isDebugPerlin').onChange(setDebugPerlin);
+    // set which shader program to use
+    // var shaderToUse : any;
+    // function setShaderProgram(){
+    //   switch(controls.shaderProg){
+    //     case LAMBERT:
+    //       shaderToUse = lambert;
+    //       break;
+    //     case CUSTOM:
+    //       shaderToUse = custom;
+    //       break;
+    //     case PERLIN:
+    //       shaderToUse = perlin;
+    //       break;
+    //     case PLANET:
+    //       shaderToUse = planet;
+    //       break;
+    //   }
+    // }
+    // gui.add(controls, 'shaderProg', [LAMBERT, CUSTOM, PERLIN, PLANET]).onChange(setShaderProgram);
+    // setShaderProgram();
+    // setup timer;
+    var timer = 0.0;
     // This function will be called every frame
     function tick() {
         camera.update();
         stats.begin();
         gl.viewport(0, 0, window.innerWidth, window.innerHeight);
+        timer += 1.0;
+        if (timer > 10000.0) {
+            timer -= 10000.0;
+        }
         renderer.clear();
-        renderer.render(camera, lambert, [
-            icosphere,
-        ]);
+        if (isDebugPerlin) {
+            perlin.setTimer(speed * timer / 50.0);
+            renderer.render(camera, perlin, [
+                square,
+            ]);
+        }
+        else {
+            // background
+            background.setTimer(speed * timer / 500.0);
+            renderer.render(camera, background, [
+                square,
+            ]);
+            // base sphere
+            // shaderToUse.setTimer(timer / 50.0);  
+            // renderer.render(camera, shaderToUse, [
+            //   geometryToRender,
+            // ]);
+            planet.setTimer(speed * timer / 50.0);
+            renderer.render(camera, planet, [
+                icosphere,
+            ]);
+            // outer cover sphere
+            planet_out.setTimer(speed * timer / 200.0);
+            renderer.render(camera, planet_out, [
+                icosphere_out,
+            ]);
+        }
         stats.end();
         // Tell the browser to call `tick` again whenever it renders a new frame
         requestAnimationFrame(tick);
@@ -3385,7 +3605,7 @@ main();
 
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3854,7 +4074,7 @@ const sub = subtract;
 
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4355,7 +4575,7 @@ const sub = subtract;
 
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6093,7 +6313,7 @@ const sub = subtract;
 
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6783,44 +7003,45 @@ const setAxes = (function() {
 
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony export create */
-/* unused harmony export clone */
-/* unused harmony export fromValues */
-/* unused harmony export copy */
-/* unused harmony export set */
-/* unused harmony export add */
-/* unused harmony export subtract */
-/* unused harmony export multiply */
-/* unused harmony export divide */
-/* unused harmony export ceil */
-/* unused harmony export floor */
-/* unused harmony export min */
-/* unused harmony export max */
-/* unused harmony export round */
-/* unused harmony export scale */
-/* unused harmony export scaleAndAdd */
-/* unused harmony export distance */
-/* unused harmony export squaredDistance */
-/* unused harmony export length */
-/* unused harmony export squaredLength */
-/* unused harmony export negate */
-/* unused harmony export inverse */
-/* unused harmony export normalize */
-/* unused harmony export dot */
-/* unused harmony export cross */
-/* unused harmony export lerp */
-/* unused harmony export random */
-/* unused harmony export transformMat2 */
-/* unused harmony export transformMat2d */
-/* unused harmony export transformMat3 */
-/* unused harmony export transformMat4 */
-/* unused harmony export str */
-/* unused harmony export exactEquals */
-/* unused harmony export equals */
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (immutable) */ __webpack_exports__["create"] = create;
+/* harmony export (immutable) */ __webpack_exports__["clone"] = clone;
+/* harmony export (immutable) */ __webpack_exports__["fromValues"] = fromValues;
+/* harmony export (immutable) */ __webpack_exports__["copy"] = copy;
+/* harmony export (immutable) */ __webpack_exports__["set"] = set;
+/* harmony export (immutable) */ __webpack_exports__["add"] = add;
+/* harmony export (immutable) */ __webpack_exports__["subtract"] = subtract;
+/* harmony export (immutable) */ __webpack_exports__["multiply"] = multiply;
+/* harmony export (immutable) */ __webpack_exports__["divide"] = divide;
+/* harmony export (immutable) */ __webpack_exports__["ceil"] = ceil;
+/* harmony export (immutable) */ __webpack_exports__["floor"] = floor;
+/* harmony export (immutable) */ __webpack_exports__["min"] = min;
+/* harmony export (immutable) */ __webpack_exports__["max"] = max;
+/* harmony export (immutable) */ __webpack_exports__["round"] = round;
+/* harmony export (immutable) */ __webpack_exports__["scale"] = scale;
+/* harmony export (immutable) */ __webpack_exports__["scaleAndAdd"] = scaleAndAdd;
+/* harmony export (immutable) */ __webpack_exports__["distance"] = distance;
+/* harmony export (immutable) */ __webpack_exports__["squaredDistance"] = squaredDistance;
+/* harmony export (immutable) */ __webpack_exports__["length"] = length;
+/* harmony export (immutable) */ __webpack_exports__["squaredLength"] = squaredLength;
+/* harmony export (immutable) */ __webpack_exports__["negate"] = negate;
+/* harmony export (immutable) */ __webpack_exports__["inverse"] = inverse;
+/* harmony export (immutable) */ __webpack_exports__["normalize"] = normalize;
+/* harmony export (immutable) */ __webpack_exports__["dot"] = dot;
+/* harmony export (immutable) */ __webpack_exports__["cross"] = cross;
+/* harmony export (immutable) */ __webpack_exports__["lerp"] = lerp;
+/* harmony export (immutable) */ __webpack_exports__["random"] = random;
+/* harmony export (immutable) */ __webpack_exports__["transformMat2"] = transformMat2;
+/* harmony export (immutable) */ __webpack_exports__["transformMat2d"] = transformMat2d;
+/* harmony export (immutable) */ __webpack_exports__["transformMat3"] = transformMat3;
+/* harmony export (immutable) */ __webpack_exports__["transformMat4"] = transformMat4;
+/* harmony export (immutable) */ __webpack_exports__["str"] = str;
+/* harmony export (immutable) */ __webpack_exports__["exactEquals"] = exactEquals;
+/* harmony export (immutable) */ __webpack_exports__["equals"] = equals;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common__ = __webpack_require__(0);
 /* Copyright (c) 2015, Brandon Jones, Colin MacKenzie IV.
 
@@ -7329,7 +7550,7 @@ function equals(a, b) {
  * @function
  */
 const len = length;
-/* unused harmony export len */
+/* harmony export (immutable) */ __webpack_exports__["len"] = len;
 
 
 /**
@@ -7337,7 +7558,7 @@ const len = length;
  * @function
  */
 const sub = subtract;
-/* unused harmony export sub */
+/* harmony export (immutable) */ __webpack_exports__["sub"] = sub;
 
 
 /**
@@ -7345,7 +7566,7 @@ const sub = subtract;
  * @function
  */
 const mul = multiply;
-/* unused harmony export mul */
+/* harmony export (immutable) */ __webpack_exports__["mul"] = mul;
 
 
 /**
@@ -7353,7 +7574,7 @@ const mul = multiply;
  * @function
  */
 const div = divide;
-/* unused harmony export div */
+/* harmony export (immutable) */ __webpack_exports__["div"] = div;
 
 
 /**
@@ -7361,7 +7582,7 @@ const div = divide;
  * @function
  */
 const dist = distance;
-/* unused harmony export dist */
+/* harmony export (immutable) */ __webpack_exports__["dist"] = dist;
 
 
 /**
@@ -7369,7 +7590,7 @@ const dist = distance;
  * @function
  */
 const sqrDist = squaredDistance;
-/* unused harmony export sqrDist */
+/* harmony export (immutable) */ __webpack_exports__["sqrDist"] = sqrDist;
 
 
 /**
@@ -7377,7 +7598,7 @@ const sqrDist = squaredDistance;
  * @function
  */
 const sqrLen = squaredLength;
-/* unused harmony export sqrLen */
+/* harmony export (immutable) */ __webpack_exports__["sqrLen"] = sqrLen;
 
 
 /**
@@ -7420,12 +7641,12 @@ const forEach = (function() {
     return a;
   };
 })();
-/* unused harmony export forEach */
+/* harmony export (immutable) */ __webpack_exports__["forEach"] = forEach;
 
 
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports) {
 
 // stats.js - http://github.com/mrdoob/stats.js
@@ -7437,14 +7658,14 @@ a+"px",m=b,r=0);return b},update:function(){l=this.end()}}};"object"===typeof mo
 
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(26)
-module.exports.color = __webpack_require__(27)
+module.exports = __webpack_require__(28)
+module.exports.color = __webpack_require__(29)
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, exports) {
 
 /**
@@ -11109,7 +11330,7 @@ dat.dom.dom,
 dat.utils.common);
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, exports) {
 
 /**
@@ -11869,12 +12090,12 @@ dat.color.toString,
 dat.utils.common);
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__globals__ = __webpack_require__(2);
 
 
@@ -11884,7 +12105,7 @@ class Icosphere extends __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__["a"
         super(); // Call the constructor of the super class. This is required.
         this.radius = radius;
         this.subdivisions = subdivisions;
-        this.center = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec4 */].fromValues(center[0], center[1], center[2], 1);
+        this.center = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["d" /* vec4 */].fromValues(center[0], center[1], center[2], 1);
     }
     create() {
         const X = 0.525731112119133606;
@@ -11965,8 +12186,8 @@ class Icosphere extends __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__["a"
                 let key = [v0, v1].sort().join('_');
                 if (!edgeMap.has(key)) {
                     let midpoint = new Float32Array(buffer0, vertexByteOffset + vertices.length * 4 * Float32Array.BYTES_PER_ELEMENT, 4);
-                    __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec4 */].add(midpoint, vertices[v0], vertices[v1]);
-                    __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec4 */].normalize(midpoint, midpoint);
+                    __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["d" /* vec4 */].add(midpoint, vertices[v0], vertices[v1]);
+                    __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["d" /* vec4 */].normalize(midpoint, midpoint);
                     edgeMap.set(key, vertices.length);
                     vertices.push(midpoint);
                 }
@@ -12003,7 +12224,7 @@ class Icosphere extends __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__["a"
         // Populate one position for each normal
         for (let i = 0; i < vertices.length; ++i) {
             let pos = new Float32Array(buffer0, positionByteOffset + i * 4 * Float32Array.BYTES_PER_ELEMENT, 4);
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec4 */].scaleAndAdd(pos, this.center, vertices[i], this.radius);
+            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["d" /* vec4 */].scaleAndAdd(pos, this.center, vertices[i], this.radius);
         }
         this.buffer = buffer0;
         this.indices = new Uint32Array(this.buffer, indexByteOffset, triangles.length * 3);
@@ -12027,67 +12248,51 @@ class Icosphere extends __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__["a"
 
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__globals__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__globals__ = __webpack_require__(2);
 
-class Drawable {
-    constructor() {
-        this.count = 0;
-        this.idxBound = false;
-        this.posBound = false;
-        this.norBound = false;
+
+
+class Square extends __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__["a" /* default */] {
+    constructor(center) {
+        super(); // Call the constructor of the super class. This is required.
+        this.center = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["d" /* vec4 */].fromValues(center[0], center[1], center[2], 1);
     }
-    destory() {
-        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufIdx);
-        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufPos);
-        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufNor);
-    }
-    generateIdx() {
-        this.idxBound = true;
-        this.bufIdx = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
-    }
-    generatePos() {
-        this.posBound = true;
-        this.bufPos = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
-    }
-    generateNor() {
-        this.norBound = true;
-        this.bufNor = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
-    }
-    bindIdx() {
-        if (this.idxBound) {
-            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ELEMENT_ARRAY_BUFFER, this.bufIdx);
-        }
-        return this.idxBound;
-    }
-    bindPos() {
-        if (this.posBound) {
-            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ARRAY_BUFFER, this.bufPos);
-        }
-        return this.posBound;
-    }
-    bindNor() {
-        if (this.norBound) {
-            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ARRAY_BUFFER, this.bufNor);
-        }
-        return this.norBound;
-    }
-    elemCount() {
-        return this.count;
-    }
-    drawMode() {
-        return __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].TRIANGLES;
+    create() {
+        this.indices = new Uint32Array([0, 1, 2,
+            0, 2, 3]);
+        this.normals = new Float32Array([0, 0, 1, 0,
+            0, 0, 1, 0,
+            0, 0, 1, 0,
+            0, 0, 1, 0]);
+        this.positions = new Float32Array([-1, -1, 0, 1,
+            1, -1, 0, 1,
+            1, 1, 0, 1,
+            -1, 1, 0, 1]);
+        this.generateIdx();
+        this.generatePos();
+        this.generateNor();
+        this.count = this.indices.length;
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ELEMENT_ARRAY_BUFFER, this.bufIdx);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ELEMENT_ARRAY_BUFFER, this.indices, __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].STATIC_DRAW);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.bufNor);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.normals, __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].STATIC_DRAW);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.bufPos);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.positions, __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].STATIC_DRAW);
+        console.log(`Created square`);
     }
 }
 ;
-/* harmony default export */ __webpack_exports__["a"] = (Drawable);
+/* harmony default export */ __webpack_exports__["a"] = (Square);
 
 
 /***/ }),
-/* 30 */
+/* 32 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12113,12 +12318,12 @@ class OpenGLRenderer {
     render(camera, prog, drawables) {
         let model = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].create();
         let viewProj = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].create();
-        let color = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec4 */].fromValues(1, 0, 0, 1);
+        //let color = vec4.fromValues(1, 0, 0, 1);
         __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].identity(model);
         __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].multiply(viewProj, camera.projectionMatrix, camera.viewMatrix);
         prog.setModelMatrix(model);
         prog.setViewProjMatrix(viewProj);
-        prog.setGeometryColor(color);
+        //prog.setGeometryColor(color);
         for (let drawable of drawables) {
             prog.draw(drawable);
         }
@@ -12129,11 +12334,11 @@ class OpenGLRenderer {
 
 
 /***/ }),
-/* 31 */
+/* 33 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_3d_view_controls__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_3d_view_controls__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_3d_view_controls___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_3d_view_controls__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_gl_matrix__ = __webpack_require__(1);
 
@@ -12146,15 +12351,15 @@ class Camera {
         this.aspectRatio = 1;
         this.near = 0.1;
         this.far = 1000;
-        this.position = __WEBPACK_IMPORTED_MODULE_1_gl_matrix__["b" /* vec3 */].create();
-        this.direction = __WEBPACK_IMPORTED_MODULE_1_gl_matrix__["b" /* vec3 */].create();
-        this.target = __WEBPACK_IMPORTED_MODULE_1_gl_matrix__["b" /* vec3 */].create();
-        this.up = __WEBPACK_IMPORTED_MODULE_1_gl_matrix__["b" /* vec3 */].create();
+        this.position = __WEBPACK_IMPORTED_MODULE_1_gl_matrix__["c" /* vec3 */].create();
+        this.direction = __WEBPACK_IMPORTED_MODULE_1_gl_matrix__["c" /* vec3 */].create();
+        this.target = __WEBPACK_IMPORTED_MODULE_1_gl_matrix__["c" /* vec3 */].create();
+        this.up = __WEBPACK_IMPORTED_MODULE_1_gl_matrix__["c" /* vec3 */].create();
         this.controls = __WEBPACK_IMPORTED_MODULE_0_3d_view_controls__(document.getElementById('canvas'), {
             eye: position,
             center: target,
         });
-        __WEBPACK_IMPORTED_MODULE_1_gl_matrix__["b" /* vec3 */].add(this.target, this.position, this.direction);
+        __WEBPACK_IMPORTED_MODULE_1_gl_matrix__["c" /* vec3 */].add(this.target, this.position, this.direction);
         __WEBPACK_IMPORTED_MODULE_1_gl_matrix__["a" /* mat4 */].lookAt(this.viewMatrix, this.controls.eye, this.controls.center, this.controls.up);
     }
     setAspectRatio(aspectRatio) {
@@ -12165,7 +12370,7 @@ class Camera {
     }
     update() {
         this.controls.tick();
-        __WEBPACK_IMPORTED_MODULE_1_gl_matrix__["b" /* vec3 */].add(this.target, this.position, this.direction);
+        __WEBPACK_IMPORTED_MODULE_1_gl_matrix__["c" /* vec3 */].add(this.target, this.position, this.direction);
         __WEBPACK_IMPORTED_MODULE_1_gl_matrix__["a" /* mat4 */].lookAt(this.viewMatrix, this.controls.eye, this.controls.center, this.controls.up);
     }
 }
@@ -12174,7 +12379,7 @@ class Camera {
 
 
 /***/ }),
-/* 32 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12182,11 +12387,11 @@ class Camera {
 
 module.exports = createCamera
 
-var now         = __webpack_require__(33)
-var createView  = __webpack_require__(35)
-var mouseChange = __webpack_require__(58)
-var mouseWheel  = __webpack_require__(60)
-var mouseOffset = __webpack_require__(63)
+var now         = __webpack_require__(35)
+var createView  = __webpack_require__(37)
+var mouseChange = __webpack_require__(60)
+var mouseWheel  = __webpack_require__(62)
+var mouseOffset = __webpack_require__(65)
 
 function createCamera(element, options) {
   element = element || document.body
@@ -12408,7 +12613,7 @@ function createCamera(element, options) {
 
 
 /***/ }),
-/* 33 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {module.exports =
@@ -12419,10 +12624,10 @@ function createCamera(element, options) {
     return +new Date
   }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(34)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(36)))
 
 /***/ }),
-/* 34 */
+/* 36 */
 /***/ (function(module, exports) {
 
 var g;
@@ -12449,7 +12654,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 35 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12457,9 +12662,9 @@ module.exports = g;
 
 module.exports = createViewController
 
-var createTurntable = __webpack_require__(36)
-var createOrbit     = __webpack_require__(39)
-var createMatrix    = __webpack_require__(42)
+var createTurntable = __webpack_require__(38)
+var createOrbit     = __webpack_require__(41)
+var createMatrix    = __webpack_require__(44)
 
 function ViewController(controllers, mode) {
   this._controllerNames = Object.keys(controllers)
@@ -12577,7 +12782,7 @@ function createViewController(options) {
 }
 
 /***/ }),
-/* 36 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12585,12 +12790,12 @@ function createViewController(options) {
 
 module.exports = createTurntableController
 
-var filterVector = __webpack_require__(8)
+var filterVector = __webpack_require__(9)
 var invert44     = __webpack_require__(3)
-var rotateM      = __webpack_require__(38)
-var cross        = __webpack_require__(10)
+var rotateM      = __webpack_require__(40)
+var cross        = __webpack_require__(11)
 var normalize3   = __webpack_require__(4)
-var dot3         = __webpack_require__(11)
+var dot3         = __webpack_require__(12)
 
 function len3(x, y, z) {
   return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2))
@@ -13155,7 +13360,7 @@ function createTurntableController(options) {
 }
 
 /***/ }),
-/* 37 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13200,7 +13405,7 @@ module.exports = cubicHermite
 module.exports.derivative = dcubicHermite
 
 /***/ }),
-/* 38 */
+/* 40 */
 /***/ (function(module, exports) {
 
 module.exports = rotate;
@@ -13269,7 +13474,7 @@ function rotate(out, a, rad, axis) {
 };
 
 /***/ }),
-/* 39 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13277,11 +13482,11 @@ function rotate(out, a, rad, axis) {
 
 module.exports = createOrbitController
 
-var filterVector  = __webpack_require__(8)
-var lookAt        = __webpack_require__(12)
-var mat4FromQuat  = __webpack_require__(40)
+var filterVector  = __webpack_require__(9)
+var lookAt        = __webpack_require__(13)
+var mat4FromQuat  = __webpack_require__(42)
 var invert44      = __webpack_require__(3)
-var quatFromFrame = __webpack_require__(41)
+var quatFromFrame = __webpack_require__(43)
 
 function len3(x,y,z) {
   return Math.sqrt(Math.pow(x,2) + Math.pow(y,2) + Math.pow(z,2))
@@ -13668,7 +13873,7 @@ function createOrbitController(options) {
 }
 
 /***/ }),
-/* 40 */
+/* 42 */
 /***/ (function(module, exports) {
 
 module.exports = fromQuat;
@@ -13720,7 +13925,7 @@ function fromQuat(out, q) {
 };
 
 /***/ }),
-/* 41 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13767,21 +13972,21 @@ function quatFromFrame(
 }
 
 /***/ }),
-/* 42 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var bsearch   = __webpack_require__(9)
-var m4interp  = __webpack_require__(43)
+var bsearch   = __webpack_require__(10)
+var m4interp  = __webpack_require__(45)
 var invert44  = __webpack_require__(3)
-var rotateX   = __webpack_require__(55)
-var rotateY   = __webpack_require__(56)
-var rotateZ   = __webpack_require__(57)
-var lookAt    = __webpack_require__(12)
-var translate = __webpack_require__(14)
-var scale     = __webpack_require__(16)
+var rotateX   = __webpack_require__(57)
+var rotateY   = __webpack_require__(58)
+var rotateZ   = __webpack_require__(59)
+var lookAt    = __webpack_require__(13)
+var translate = __webpack_require__(15)
+var scale     = __webpack_require__(17)
 var normalize = __webpack_require__(4)
 
 var DEFAULT_CENTER = [0,0,0]
@@ -13972,15 +14177,15 @@ function createMatrixCameraController(options) {
 
 
 /***/ }),
-/* 43 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var lerp = __webpack_require__(44)
+var lerp = __webpack_require__(46)
 
-var recompose = __webpack_require__(45)
-var decompose = __webpack_require__(48)
-var determinant = __webpack_require__(17)
-var slerp = __webpack_require__(53)
+var recompose = __webpack_require__(47)
+var decompose = __webpack_require__(50)
+var determinant = __webpack_require__(18)
+var slerp = __webpack_require__(55)
 
 var state0 = state()
 var state1 = state()
@@ -14029,7 +14234,7 @@ function vec4() {
 }
 
 /***/ }),
-/* 44 */
+/* 46 */
 /***/ (function(module, exports) {
 
 module.exports = lerp;
@@ -14054,7 +14259,7 @@ function lerp(out, a, b, t) {
 }
 
 /***/ }),
-/* 45 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -14069,12 +14274,12 @@ From: http://www.w3.org/TR/css3-transforms/#recomposing-to-a-3d-matrix
 */
 
 var mat4 = {
-    identity: __webpack_require__(13),
-    translate: __webpack_require__(14),
-    multiply: __webpack_require__(46),
-    create: __webpack_require__(15),
-    scale: __webpack_require__(16),
-    fromRotationTranslation: __webpack_require__(47)
+    identity: __webpack_require__(14),
+    translate: __webpack_require__(15),
+    multiply: __webpack_require__(48),
+    create: __webpack_require__(16),
+    scale: __webpack_require__(17),
+    fromRotationTranslation: __webpack_require__(49)
 }
 
 var rotationMatrix = mat4.create()
@@ -14119,7 +14324,7 @@ module.exports = function recomposeMat4(matrix, translation, scale, skew, perspe
 }
 
 /***/ }),
-/* 46 */
+/* 48 */
 /***/ (function(module, exports) {
 
 module.exports = multiply;
@@ -14166,7 +14371,7 @@ function multiply(out, a, b) {
 };
 
 /***/ }),
-/* 47 */
+/* 49 */
 /***/ (function(module, exports) {
 
 module.exports = fromRotationTranslation;
@@ -14224,7 +14429,7 @@ function fromRotationTranslation(out, q, v) {
 };
 
 /***/ }),
-/* 48 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*jshint unused:true*/
@@ -14244,18 +14449,18 @@ https://github.com/ChromiumWebApps/chromium/blob/master/ui/gfx/transform_util.cc
 http://www.w3.org/TR/css3-transforms/#decomposing-a-3d-matrix
 */
 
-var normalize = __webpack_require__(49)
+var normalize = __webpack_require__(51)
 
-var create = __webpack_require__(15)
-var clone = __webpack_require__(50)
-var determinant = __webpack_require__(17)
+var create = __webpack_require__(16)
+var clone = __webpack_require__(52)
+var determinant = __webpack_require__(18)
 var invert = __webpack_require__(3)
-var transpose = __webpack_require__(51)
+var transpose = __webpack_require__(53)
 var vec3 = {
-    length: __webpack_require__(52),
+    length: __webpack_require__(54),
     normalize: __webpack_require__(4),
-    dot: __webpack_require__(11),
-    cross: __webpack_require__(10)
+    dot: __webpack_require__(12),
+    cross: __webpack_require__(11)
 }
 
 var tmp = create()
@@ -14408,7 +14613,7 @@ function combine(out, a, b, scale1, scale2) {
 }
 
 /***/ }),
-/* 49 */
+/* 51 */
 /***/ (function(module, exports) {
 
 module.exports = function normalize(out, mat) {
@@ -14423,7 +14628,7 @@ module.exports = function normalize(out, mat) {
 }
 
 /***/ }),
-/* 50 */
+/* 52 */
 /***/ (function(module, exports) {
 
 module.exports = clone;
@@ -14456,7 +14661,7 @@ function clone(a) {
 };
 
 /***/ }),
-/* 51 */
+/* 53 */
 /***/ (function(module, exports) {
 
 module.exports = transpose;
@@ -14510,7 +14715,7 @@ function transpose(out, a) {
 };
 
 /***/ }),
-/* 52 */
+/* 54 */
 /***/ (function(module, exports) {
 
 module.exports = length;
@@ -14529,13 +14734,13 @@ function length(a) {
 }
 
 /***/ }),
-/* 53 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(54)
+module.exports = __webpack_require__(56)
 
 /***/ }),
-/* 54 */
+/* 56 */
 /***/ (function(module, exports) {
 
 module.exports = slerp
@@ -14592,7 +14797,7 @@ function slerp (out, a, b, t) {
 
 
 /***/ }),
-/* 55 */
+/* 57 */
 /***/ (function(module, exports) {
 
 module.exports = rotateX;
@@ -14641,7 +14846,7 @@ function rotateX(out, a, rad) {
 };
 
 /***/ }),
-/* 56 */
+/* 58 */
 /***/ (function(module, exports) {
 
 module.exports = rotateY;
@@ -14690,7 +14895,7 @@ function rotateY(out, a, rad) {
 };
 
 /***/ }),
-/* 57 */
+/* 59 */
 /***/ (function(module, exports) {
 
 module.exports = rotateZ;
@@ -14739,7 +14944,7 @@ function rotateZ(out, a, rad) {
 };
 
 /***/ }),
-/* 58 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14747,7 +14952,7 @@ function rotateZ(out, a, rad) {
 
 module.exports = mouseListen
 
-var mouse = __webpack_require__(59)
+var mouse = __webpack_require__(61)
 
 function mouseListen (element, callback) {
   if (!callback) {
@@ -14951,7 +15156,7 @@ function mouseListen (element, callback) {
 
 
 /***/ }),
-/* 59 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15018,13 +15223,13 @@ exports.y = mouseRelativeY
 
 
 /***/ }),
-/* 60 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var toPX = __webpack_require__(61)
+var toPX = __webpack_require__(63)
 
 module.exports = mouseWheelListen
 
@@ -15065,13 +15270,13 @@ function mouseWheelListen(element, callback, noScroll) {
 
 
 /***/ }),
-/* 61 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var parseUnit = __webpack_require__(62)
+var parseUnit = __webpack_require__(64)
 
 module.exports = toPX
 
@@ -15131,7 +15336,7 @@ function toPX(str, element) {
 }
 
 /***/ }),
-/* 62 */
+/* 64 */
 /***/ (function(module, exports) {
 
 module.exports = function parseUnit(str, out) {
@@ -15146,7 +15351,7 @@ module.exports = function parseUnit(str, out) {
 }
 
 /***/ }),
-/* 63 */
+/* 65 */
 /***/ (function(module, exports) {
 
 var rootPosition = { left: 0, top: 0 }
@@ -15177,7 +15382,7 @@ function getBoundingClientOffset (element) {
 
 
 /***/ }),
-/* 64 */
+/* 66 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15186,6 +15391,31 @@ function getBoundingClientOffset (element) {
 
 
 var activeProgram = null;
+var p = [
+    151, 160, 137, 91, 90, 15,
+    131, 13, 201, 95, 96, 53, 194, 233, 7, 225, 140, 36, 103, 30, 69, 142, 8, 99, 37, 240, 21, 10, 23,
+    190, 6, 148, 247, 120, 234, 75, 0, 26, 197, 62, 94, 252, 219, 203, 117, 35, 11, 32, 57, 177, 33,
+    88, 237, 149, 56, 87, 174, 20, 125, 136, 171, 168, 68, 175, 74, 165, 71, 134, 139, 48, 27, 166,
+    77, 146, 158, 231, 83, 111, 229, 122, 60, 211, 133, 230, 220, 105, 92, 41, 55, 46, 245, 40, 244,
+    102, 143, 54, 65, 25, 63, 161, 1, 216, 80, 73, 209, 76, 132, 187, 208, 89, 18, 169, 200, 196,
+    135, 130, 116, 188, 159, 86, 164, 100, 109, 198, 173, 186, 3, 64, 52, 217, 226, 250, 124, 123,
+    5, 202, 38, 147, 118, 126, 255, 82, 85, 212, 207, 206, 59, 227, 47, 16, 58, 17, 182, 189, 28, 42,
+    223, 183, 170, 213, 119, 248, 152, 2, 44, 154, 163, 70, 221, 153, 101, 155, 167, 43, 172, 9,
+    129, 22, 39, 253, 19, 98, 108, 110, 79, 113, 224, 232, 178, 185, 112, 104, 218, 246, 97, 228,
+    251, 34, 242, 193, 238, 210, 144, 12, 191, 179, 162, 241, 81, 51, 145, 235, 249, 14, 239, 107,
+    49, 192, 214, 31, 181, 199, 106, 157, 184, 84, 204, 176, 115, 121, 50, 45, 127, 4, 150, 254,
+    138, 236, 205, 93, 222, 114, 67, 29, 24, 72, 243, 141, 128, 195, 78, 66, 215, 61, 156, 180
+];
+// var grad3 : Array<vec3> = [
+//   vec3.fromValues(1,1,0),vec3.fromValues(-1,1,0),vec3.fromValues(1,-1,0),vec3.fromValues(-1,-1,0),
+//   vec3.fromValues(1,0,1),vec3.fromValues(-1,0,1),vec3.fromValues(1,0,-1),vec3.fromValues(-1,0,-1),
+//   vec3.fromValues(0,1,1),vec3.fromValues(0,-1,1),vec3.fromValues(0,1,-1),vec3.fromValues(0,-1,-1)
+// ];
+var grad3 = [
+    1.0, 1.0, 0.0, -1.0, 1.0, 0.0, 1.0, -1.0, 0.0, -1.0, -1.0, 0.0,
+    1.0, 0.0, 1.0, -1.0, 0.0, 1.0, 1.0, 0.0, -1.0, -1.0, 0.0, -1.0,
+    0.0, 1.0, 1.0, 0.0, -1.0, 1.0, 0.0, 1.0, -1.0, 0.0, -1.0, -1.0
+];
 class Shader {
     constructor(type, source) {
         this.shader = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].createShader(type);
@@ -15216,6 +15446,12 @@ class ShaderProgram {
         this.unifModelInvTr = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getUniformLocation(this.prog, "u_ModelInvTr");
         this.unifViewProj = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getUniformLocation(this.prog, "u_ViewProj");
         this.unifColor = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getUniformLocation(this.prog, "u_Color");
+        this.unifTimer = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getUniformLocation(this.prog, "u_Timer");
+        this.unifDimensions = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getUniformLocation(this.prog, "u_Dimensions");
+        this.unifPermArray = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getUniformLocation(this.prog, "u_Perm");
+        this.unifGradArray = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getUniformLocation(this.prog, "u_Grad3");
+        this.unifTimeScale = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getUniformLocation(this.prog, "u_TimeScale");
+        this.unifFinalNoiseScale = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getUniformLocation(this.prog, "u_FinalNoiseScale");
     }
     use() {
         if (activeProgram !== this.prog) {
@@ -15247,6 +15483,44 @@ class ShaderProgram {
             __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].uniform4fv(this.unifColor, color);
         }
     }
+    setTimer(timer) {
+        this.use();
+        if (this.unifTimer !== -1) {
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].uniform1f(this.unifTimer, timer);
+        }
+    }
+    setDimensions(dimensions) {
+        this.use();
+        if (this.unifDimensions !== -1) {
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].uniform2fv(this.unifDimensions, dimensions);
+        }
+    }
+    setNoise3d(timeScale, finalNoiseScale) {
+        this.use();
+        if (this.unifTimeScale !== -1) {
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].uniform1f(this.unifTimeScale, timeScale);
+        }
+        if (this.unifFinalNoiseScale !== -1) {
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].uniform1f(this.unifFinalNoiseScale, finalNoiseScale);
+        }
+        if (this.unifPermArray !== -1) {
+            var perm;
+            perm = [];
+            for (let i = 0; i < 512; i++) {
+                perm[i] = p[i & 255];
+            }
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].uniform1iv(this.unifPermArray, perm, 0, 512);
+        }
+        if (this.unifGradArray !== -1) {
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].uniform3fv(this.unifGradArray, grad3, 0, 36);
+        }
+    }
+    setNoiseScale(scale) {
+        this.use();
+        if (this.unifFinalNoiseScale !== -1) {
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].uniform1f(this.unifFinalNoiseScale, scale);
+        }
+    }
     draw(d) {
         this.use();
         if (this.attrPos != -1 && d.bindPos()) {
@@ -15270,16 +15544,40 @@ class ShaderProgram {
 
 
 /***/ }),
-/* 65 */
+/* 67 */
 /***/ (function(module, exports) {
 
-module.exports = "#version 300 es\n\n//This is a vertex shader. While it is called a \"shader\" due to outdated conventions, this file\n//is used to apply matrix transformations to the arrays of vertex data passed to it.\n//Since this code is run on your GPU, each vertex is transformed simultaneously.\n//If it were run on your CPU, each vertex would have to be processed in a FOR loop, one at a time.\n//This simultaneous transformation allows your program to run much faster, especially when rendering\n//geometry with millions of vertices.\n\nuniform mat4 u_Model;       // The matrix that defines the transformation of the\n                            // object we're rendering. In this assignment,\n                            // this will be the result of traversing your scene graph.\n\nuniform mat4 u_ModelInvTr;  // The inverse transpose of the model matrix.\n                            // This allows us to transform the object's normals properly\n                            // if the object has been non-uniformly scaled.\n\nuniform mat4 u_ViewProj;    // The matrix that defines the camera's transformation.\n                            // We've written a static matrix for you to use for HW2,\n                            // but in HW3 you'll have to generate one yourself\n\nin vec4 vs_Pos;             // The array of vertex positions passed to the shader\n\nin vec4 vs_Nor;             // The array of vertex normals passed to the shader\n\nin vec4 vs_Col;             // The array of vertex colors passed to the shader.\n\nout vec4 fs_Nor;            // The array of normals that has been transformed by u_ModelInvTr. This is implicitly passed to the fragment shader.\nout vec4 fs_LightVec;       // The direction in which our virtual light lies, relative to each vertex. This is implicitly passed to the fragment shader.\nout vec4 fs_Col;            // The color of each vertex. This is implicitly passed to the fragment shader.\n\nconst vec4 lightPos = vec4(5, 5, 3, 1); //The position of our virtual light, which is used to compute the shading of\n                                        //the geometry in the fragment shader.\n\nvoid main()\n{\n    fs_Col = vs_Col;                         // Pass the vertex colors to the fragment shader for interpolation\n\n    mat3 invTranspose = mat3(u_ModelInvTr);\n    fs_Nor = vec4(invTranspose * vec3(vs_Nor), 0);          // Pass the vertex normals to the fragment shader for interpolation.\n                                                            // Transform the geometry's normals by the inverse transpose of the\n                                                            // model matrix. This is necessary to ensure the normals remain\n                                                            // perpendicular to the surface after the surface is transformed by\n                                                            // the model matrix.\n\n\n    vec4 modelposition = u_Model * vs_Pos;   // Temporarily store the transformed vertex positions for use below\n\n    fs_LightVec = lightPos - modelposition;  // Compute the direction in which the light source lies\n\n    gl_Position = u_ViewProj * modelposition;// gl_Position is a built-in variable of OpenGL which is\n                                             // used to render the final positions of the geometry's vertices\n}\n"
+module.exports = "#version 300 es\r\n\r\nin vec4 vs_Pos;\r\n\r\nout vec2 fs_UV;\r\n\r\nvoid main() {\r\n    gl_Position = vec4(vs_Pos.xyz, 1.0);\r\n\r\n    fs_UV = vs_Pos.xy * 0.5 + 0.5;\r\n}"
 
 /***/ }),
-/* 66 */
+/* 68 */
 /***/ (function(module, exports) {
 
-module.exports = "#version 300 es\n\n// This is a fragment shader. If you've opened this file first, please\n// open and read lambert.vert.glsl before reading on.\n// Unlike the vertex shader, the fragment shader actually does compute\n// the shading of geometry. For every pixel in your program's output\n// screen, the fragment shader is run for every bit of geometry that\n// particular pixel overlaps. By implicitly interpolating the position\n// data passed into the fragment shader by the vertex shader, the fragment shader\n// can compute what color to apply to its pixel based on things like vertex\n// position, light position, and vertex color.\nprecision highp float;\n\nuniform vec4 u_Color; // The color with which to render this instance of geometry.\n\n// These are the interpolated values out of the rasterizer, so you can't know\n// their specific values without knowing the vertices that contributed to them\nin vec4 fs_Nor;\nin vec4 fs_LightVec;\nin vec4 fs_Col;\n\nout vec4 out_Col; // This is the final output color that you will see on your\n                  // screen for the pixel that is currently being processed.\n\nvoid main()\n{\n    // Material base color (before shading)\n        vec4 diffuseColor = u_Color;\n\n        // Calculate the diffuse term for Lambert shading\n        float diffuseTerm = dot(normalize(fs_Nor), normalize(fs_LightVec));\n        // Avoid negative lighting values\n        // diffuseTerm = clamp(diffuseTerm, 0, 1);\n\n        float ambientTerm = 0.2;\n\n        float lightIntensity = diffuseTerm + ambientTerm;   //Add a small float value to the color multiplier\n                                                            //to simulate ambient lighting. This ensures that faces that are not\n                                                            //lit by our point light are not completely black.\n\n        // Compute final shaded color\n        out_Col = vec4(diffuseColor.rgb * lightIntensity, diffuseColor.a);\n}\n"
+module.exports = "#version 300 es\nprecision highp float;\n\nuniform vec2 u_Dimensions;\nuniform float u_Timer;\n\nuniform int u_GridSize;\n\nin vec2 fs_UV;\n\nout vec4 out_Col; \n\nuniform sampler2D u_RenderedTexture;\n\nconst vec3 a = vec3(0.4, 0.5, 0.8);\nconst vec3 b = vec3(0.2, 0.4, 0.2);\nconst vec3 c = vec3(1.0, 1.0, 2.0);\nconst vec3 d = vec3(0.25, 0.25, 0.0);\n\nconst vec3 e = vec3(0.2, 0.5, 0.8);\nconst vec3 f = vec3(0.2, 0.25, 0.5);\nconst vec3 g = vec3(1.0, 1.0, 0.1);\nconst vec3 h = vec3(0.0, 0.8, 0.2);\n\n// Return a random direction in a circle\nvec2 random2( vec2 p ) {\n    return normalize(2.0 * fract(sin(vec2(dot(p,vec2(127.1,311.7)),dot(p,vec2(269.5,183.3))))*43758.5453) - 1.0);\n}\n\nvec3 Gradient(float t)\n{\n    return a + b * cos(6.2831 * (c * t + d));\n}\n\nvec3 Gradient2(float t)\n{\n    return e + f * cos(6.2831 * (g * t + h));\n}\n\nfloat surflet(vec2 P, vec2 gridPoint)\n{\n    // Compute falloff function by converting linear distance to a polynomial\n    float distX = abs(P.x - gridPoint.x);\n    float distY = abs(P.y - gridPoint.y);\n    float tX = 1.0 - 6.0 * pow(distX, 5.0) + 15.0 * pow(distX, 4.0) - 10.0 * pow(distX, 3.0);\n    float tY = 1.0 - 6.0 * pow(distY, 5.0) + 15.0 * pow(distY, 4.0) - 10.0 * pow(distY, 3.0);\n\n    // Get the random vector for the grid point\n    vec2 gradient = random2(gridPoint);\n    // Get the vector from the grid point to P\n    vec2 diff = P - gridPoint;\n    // Get the value of our height field by dotting grid->P with our gradient\n    float height = dot(diff, gradient);\n    // Scale our height field (i.e. reduce it) by our polynomial falloff function\n    return height * tX * tY;\n}\n\nfloat PerlinNoise(vec2 uv)\n{\n    // Tile the space\n    vec2 uvXLYL = floor(uv);\n    vec2 uvXHYL = uvXLYL + vec2(1,0);\n    vec2 uvXHYH = uvXLYL + vec2(1,1);\n    vec2 uvXLYH = uvXLYL + vec2(0,1);\n\n    return surflet(uv, uvXLYL) + surflet(uv, uvXHYL) + surflet(uv, uvXHYH) + surflet(uv, uvXLYH);\n}\n\nvec2 PixelToGrid(vec2 pixel, float size)\n{\n    vec2 uv = pixel.xy / u_Dimensions.xy;\n    // Account for aspect ratio\n    uv.x = uv.x * float(u_Dimensions.x) / float(u_Dimensions.y);\n    // Determine number of cells (NxN)\n    uv *= size;\n\n    return uv;\n}\n\nvoid main()\n{\n//#define BASIC\n#define SUMMED\n//#define ABSOLUTE\n//#define RECURSIVE1\n//#define RECURSIVE2\n\n    vec3 color;\n    float time = u_Timer * 10.0;\n\n#ifdef BASIC\n    // Basic Perlin noise\n    //vec2 uv = PixelToGrid(gl_FragCoord.xy, 4.0);\n    vec2 uv = PixelToGrid(fs_UV, 4.0);\n\n    float perlin = PerlinNoise(uv);\n    color = vec3((perlin + 1.0) * 0.5);\n    color.r += step(0.98, fract(uv.x)) + step(0.98, fract(uv.y));\n#endif\n\n#ifdef SUMMED\n    float summedNoise = 0.0;\n    float amplitude = 0.5;\n    for(int i = 2; i <= 32; i *= 2) {\n        // vec2 uv = PixelToGrid(gl_FragCoord.xy, float(i));\n        vec2 uv = PixelToGrid(fs_UV, float(i));\n\n        uv = vec2(cos(3.14159/3.0 * float(i)) * uv.x - sin(3.14159/3.0 * float(i)) * uv.y, sin(3.14159/3.0 * float(i)) * uv.x + cos(3.14159/3.0 * float(i)) * uv.y);\n        float perlin = abs(PerlinNoise(uv));// * amplitude;\n        summedNoise += perlin * amplitude;\n        amplitude *= 0.5;\n    }\n    color = vec3(summedNoise);//vec3((summedNoise + 1) * 0.5);\n#endif\n\n#ifdef ABSOLUTE\n    //vec2 uv = PixelToGrid(gl_FragCoord.xy, 10.0);\n    vec2 uv = PixelToGrid(fs_UV, 10.0);\n\n    float perlin = PerlinNoise(uv);\n    color = vec3(1.0) - vec3(abs(perlin));\n//    color.r += step(0.98, fract(uv.x)) + step(0.98, fract(uv.y));\n#endif\n\n#ifdef RECURSIVE1\n    vec2 planet = vec2(cos(time * 0.01 * 3.14159), sin(time * 0.01 * 3.14159)) * 2.0 + vec2(4.0);\n    //vec2 uv = PixelToGrid(gl_FragCoord.xy, 10.0);\n    vec2 uv = PixelToGrid(fs_UV, 10.0);\n\n    vec2 planetDiff = planet - uv;\n    float len = length(planetDiff);\n    vec2 offset = vec2(PerlinNoise(uv + time * 0.01), PerlinNoise(uv + vec2(5.2, 1.3)));\n    if(len < 1.0) {\n        offset += planetDiff * (1.0 - len);\n    }\n    float perlin = PerlinNoise(uv + offset);\n    color = vec3((perlin + 1.0) * 0.5);\n#endif\n\n#ifdef RECURSIVE2\n    // Recursive Perlin noise (2 levels)\n    // vec2 uv = PixelToGrid(gl_FragCoord.xy, 10.0);\n    vec2 uv = PixelToGrid(fs_UV, 10.0);\n\n    vec2 offset1 = vec2(PerlinNoise(uv + cos(time * 3.14159 * 0.01)), PerlinNoise(uv + vec2(5.2, 1.3)));\n    vec2 offset2 = vec2(PerlinNoise(uv + offset1 + vec2(1.7, 9.2)), PerlinNoise(uv + sin(time * 3.14159 * 0.01) + offset1 + vec2(8.3, 2.8)));\n    float perlin = PerlinNoise(uv + offset2);\n    vec3 baseGradient = Gradient(perlin);\n    baseGradient = mix(baseGradient, vec3(perlin), length(offset1));\n//    baseGradient = mix(baseGradient, Gradient2(perlin), offset2.y);\n    color = baseGradient;\n\n\n//    color = vec3((perlin + 1) * 0.5);\n#endif\n   out_Col = vec4(color, 1.0);\n   //out_Col = vec4(fs_UV, 0.0, 1.0);\n}\n"
+
+/***/ }),
+/* 69 */
+/***/ (function(module, exports) {
+
+module.exports = "#version 300 es\r\nprecision highp float;\r\nprecision mediump int;\r\n\r\n//uniform vec4 u_Color; // The color with which to render this instance of geometry.\r\n\r\nuniform float u_Timer;\r\n\r\n// uniform arraies used in noise3d\r\nuniform vec3 u_Grad3[12];\r\nuniform int  u_Perm[512];\r\n\r\nconst vec3 a = vec3(0.4, 0.5, 0.8);\r\nconst vec3 b = vec3(0.2, 0.4, 0.2);\r\nconst vec3 c = vec3(1.0, 1.0, 2.0);\r\nconst vec3 d = vec3(0.25, 0.25, 0.0);\r\n\r\nconst vec3 e = vec3(0.2, 0.5, 0.8);\r\nconst vec3 f = vec3(0.2, 0.25, 0.5);\r\nconst vec3 g = vec3(1.0, 1.0, 0.1);\r\nconst vec3 h = vec3(0.0, 0.8, 0.2);\r\n\r\n\r\n// These are the interpolated values out of the rasterizer, so you can't know\r\n// their specific values without knowing the vertices that contributed to them\r\nin vec4 fs_Nor;\r\nin vec4 fs_LightVec;\r\nin vec4 fs_Col;\r\nin vec4 fs_mPos;\r\n\r\nout vec4 out_Col; // This is the final output color that you will see on your\r\n                  // screen for the pixel that is currently being processed.\r\n\r\n\r\nvec3 Gradient(float t)\r\n{\r\n    return a + b * cos(6.2831 * (c * t + d));\r\n}\r\n\r\nfloat fade(float t) {\r\n    return t*t*t*(t*(t*6.0 - 15.0) + 10.0);\r\n}\r\n\r\n// Classic Perlin noise, 3D version\r\n// refer from paper http://webstaff.itn.liu.se/~stegu/simplexnoise/simplexnoise.pdf\r\nfloat noise3d(vec3 input_vec3) {\r\n    float x = input_vec3.x;\r\n    float y = input_vec3.y;\r\n    float z = input_vec3.z;\r\n\r\n    // Find unit grid cell containing point\r\n    int X = int(floor(x));\r\n    int Y = int(floor(y));\r\n    int Z = int(floor(z));\r\n\r\n    // Get relative xyz coordinates of point within that cell\r\n    x = x - float(X);\r\n    y = y - float(Y);\r\n    z = z - float(Z);\r\n\r\n    // Wrap the integer cells at 255 (smaller integer period can be introduced here)\r\n    X = X & 255;\r\n    Y = Y & 255;\r\n    Z = Z & 255;\r\n\r\n    // Calculate a set of eight hashed gradient indices\r\n    int gi000 = u_Perm[X+u_Perm[Y+u_Perm[Z]]] % 12;\r\n    int gi001 = u_Perm[X+u_Perm[Y+u_Perm[Z+1]]] % 12;\r\n    int gi010 = u_Perm[X+u_Perm[Y+1+u_Perm[Z]]] % 12; \r\n    int gi011 = u_Perm[X+u_Perm[Y+1+u_Perm[Z+1]]] % 12;\r\n    int gi100 = u_Perm[X+1+u_Perm[Y+u_Perm[Z]]] % 12;\r\n    int gi101 = u_Perm[X+1+u_Perm[Y+u_Perm[Z+1]]] % 12;\r\n    int gi110 = u_Perm[X+1+u_Perm[Y+1+u_Perm[Z]]] % 12;\r\n    int gi111 = u_Perm[X+1+u_Perm[Y+1+u_Perm[Z+1]]] % 12;\r\n\r\n    // The gradients of each corner are now:\r\n    // g000 = grad3[gi000];\r\n    // g001 = grad3[gi001];\r\n    // g010 = grad3[gi010];\r\n    // g011 = grad3[gi011];\r\n    // g100 = grad3[gi100];\r\n    // g101 = grad3[gi101];\r\n    // g110 = grad3[gi110];\r\n    // g111 = grad3[gi111];\r\n\r\n    // Calculate noise contributions from each of the eight corners\r\n    float n000= dot(u_Grad3[gi000], vec3(x, y, z));\r\n    float n100= dot(u_Grad3[gi100], vec3(x-1.0, y, z));\r\n    float n010= dot(u_Grad3[gi010], vec3(x, y-1.0, z));\r\n    float n110= dot(u_Grad3[gi110], vec3(x-1.0, y-1.0, z));\r\n    float n001= dot(u_Grad3[gi001], vec3(x, y, z-1.0));\r\n    float n101= dot(u_Grad3[gi101], vec3(x-1.0, y, z-1.0));\r\n    float n011= dot(u_Grad3[gi011], vec3(x, y-1.0, z-1.0));\r\n    float n111= dot(u_Grad3[gi111], vec3(x-1.0, y-1.0, z-1.0));\r\n\r\n    // Compute the fade curve value for each of x, y, z\r\n    float u = fade(x);\r\n    float v = fade(y);\r\n    float w = fade(z);\r\n\r\n    // Interpolate along x the contributions from each of the corners\r\n    float nx00 = mix(n000, n100, u);\r\n    float nx01 = mix(n001, n101, u);\r\n    float nx10 = mix(n010, n110, u);\r\n    float nx11 = mix(n011, n111, u);\r\n\r\n    // Interpolate the four results along y\r\n    float nxy0 = mix(nx00, nx10, v);\r\n    float nxy1 = mix(nx01, nx11, v);\r\n\r\n    // Interpolate the two last results along z\r\n    float nxyz = mix(nxy0, nxy1, w);\r\n    return nxyz;\r\n}\r\n\r\n\r\n\r\n\r\n// // Return a random direction in a circle\r\n// vec2 random2( vec2 p ) \r\n// {\r\n//     return normalize(2.0 * fract(sin(vec2(dot(p,vec2(127.1,311.7)),dot(p,vec2(269.5,183.3))))*43758.5453) - 1.0);\r\n// }\r\n\r\n// vec3 Gradient(float t)\r\n// {\r\n//     return a + b * cos(6.2831 * (c * t + d));\r\n// }\r\n\r\n// vec3 Gradient2(float t)\r\n// {\r\n//     return e + f * cos(6.2831 * (g * t + h));\r\n// }\r\n\r\n// float surflet(vec2 P, vec2 gridPoint)\r\n// {\r\n//     // Compute falloff function by converting linear distance to a polynomial\r\n//     float distX = abs(P.x - gridPoint.x);\r\n//     float distY = abs(P.y - gridPoint.y);\r\n//     float tX = 1.0 - 6.0 * pow(distX, 5.0) + 15.0 * pow(distX, 4.0) - 10.0 * pow(distX, 3.0);\r\n//     float tY = 1.0 - 6.0 * pow(distY, 5.0) + 15.0 * pow(distY, 4.0) - 10.0 * pow(distY, 3.0);\r\n\r\n//     // Get the random vector for the grid point\r\n//     vec2 gradient = random2(gridPoint);\r\n//     // Get the vector from the grid point to P\r\n//     vec2 diff = P - gridPoint;\r\n//     // Get the value of our height field by dotting grid->P with our gradient\r\n//     float height = dot(diff, gradient);\r\n//     // Scale our height field (i.e. reduce it) by our polynomial falloff function\r\n//     return height * tX * tY;\r\n// }\r\n\r\n// float PerlinNoise(vec2 uv)\r\n// {\r\n//     // Tile the space\r\n//     vec2 uvXLYL = floor(uv);\r\n//     vec2 uvXHYL = uvXLYL + vec2(1,0);\r\n//     vec2 uvXHYH = uvXLYL + vec2(1,1);\r\n//     vec2 uvXLYH = uvXLYL + vec2(0,1);\r\n\r\n//     return surflet(uv, uvXLYL) + surflet(uv, uvXHYL) + surflet(uv, uvXHYH) + surflet(uv, uvXLYH);\r\n// }\r\n\r\n// vec2 PixelToGrid(vec2 pixel, float size)\r\n// {\r\n//     vec2 uv = pixel.xy / u_Dimensions.xy;\r\n//     // Account for aspect ratio\r\n//     uv.x = uv.x * float(u_Dimensions.x) / float(u_Dimensions.y);\r\n//     // Determine number of cells (NxN)\r\n//     uv *= size;\r\n\r\n//     return uv;\r\n// }\r\n\r\n\r\n\r\nvoid main()\r\n{\r\n    // Material base color (before shading)\r\n    //vec4 diffuseColor = u_Color;\r\n\r\n    // Calculate the diffuse term for Lambert shading\r\n    float diffuseTerm = dot(normalize(fs_Nor), normalize(fs_LightVec));\r\n    // Avoid negative lighting values\r\n    diffuseTerm = clamp(diffuseTerm, 0.0, 1.0);\r\n\r\n    float ambientTerm = 0.2 + noise3d(fs_mPos.xyz);\r\n\r\n    float lightIntensity = diffuseTerm + ambientTerm;   //Add a small float value to the color multiplier\r\n                                                        //to simulate ambient lighting. This ensures that faces that are not\r\n                                                        //lit by our point light are not completely black.\r\n\r\n\r\n\r\n    vec3 inputVec3 = 5.0 * fs_mPos.xyz;\r\n\r\n    vec3 offset1 = vec3(noise3d(inputVec3 + vec3(cos(u_Timer * 3.14159 * 0.01))), noise3d(inputVec3 + vec3(5.2, 1.3, 2.8)), noise3d(inputVec3 + vec3(sin(u_Timer * 3.14159 * 0.01))));\r\n    vec3 offset2 = vec3(noise3d(inputVec3 + offset1 + vec3(1.7, 9.2, 5.6)), noise3d(inputVec3 + vec3(sin(u_Timer * 3.14159 * 0.01)) + offset1 + vec3(8.3, 1.2, 2.8)), noise3d(inputVec3));\r\n    float perlin = noise3d(offset1 + offset2);\r\n    vec3 baseGradient = Gradient(perlin);\r\n    baseGradient = mix(baseGradient, vec3(perlin), length(offset1));\r\n    vec3 color = baseGradient;\r\n    color.r += 0.25 + 1.52 * noise3d(vec3(offset1.x, offset2.y, offset1.z));\r\n    color.g *= 0.06;\r\n    color.b *= 0.02 * sin(u_Timer);\r\n\r\n    out_Col = vec4(color * lightIntensity, 1.0);\r\n}\r\n"
+
+/***/ }),
+/* 70 */
+/***/ (function(module, exports) {
+
+module.exports = "#version 300 es\r\nprecision highp float;\r\nprecision mediump int;\r\n\r\n// uniform vec4 u_Color; // The color with which to render this instance of geometry.\r\nuniform float u_Timer;\r\n\r\n// uniform arraies used in noise3d\r\nuniform vec3 u_Grad3[12];\r\nuniform int u_Perm[512];\r\n\r\nconst vec3 eyePosition = vec3(0.0, 0.0, 5.0);\r\n\r\n\r\n// These are the interpolated values out of the rasterizer, so you can't know\r\n// their specific values without knowing the vertices that contributed to them\r\nin vec4 fs_Nor;\r\nin vec4 fs_LightVec;\r\nin vec4 fs_Col;\r\nin vec4 fs_mPos;\r\n\r\nout vec4 out_Col; // This is the final output color that you will see on your\r\n                  // screen for the pixel that is currently being processed.\r\n\r\n\r\n\r\nfloat fade(float t) {\r\n    return t*t*t*(t*(t*6.0 - 15.0) + 10.0);\r\n}\r\n\r\n// Classic Perlin noise, 3D version\r\n// refer from paper http://webstaff.itn.liu.se/~stegu/simplexnoise/simplexnoise.pdf\r\nfloat noise3d(float x, float y, float z) {\r\n    // Find unit grid cell containing point\r\n    int X = int(floor(x));\r\n    int Y = int(floor(y));\r\n    int Z = int(floor(z));\r\n\r\n    // Get relative xyz coordinates of point within that cell\r\n    x = x - float(X);\r\n    y = y - float(Y);\r\n    z = z - float(Z);\r\n\r\n    // Wrap the integer cells at 255 (smaller integer period can be introduced here)\r\n    X = X & 255;\r\n    Y = Y & 255;\r\n    Z = Z & 255;\r\n\r\n    // Calculate a set of eight hashed gradient indices\r\n    int gi000 = u_Perm[X+u_Perm[Y+u_Perm[Z]]] % 12;\r\n    int gi001 = u_Perm[X+u_Perm[Y+u_Perm[Z+1]]] % 12;\r\n    int gi010 = u_Perm[X+u_Perm[Y+1+u_Perm[Z]]] % 12; \r\n    int gi011 = u_Perm[X+u_Perm[Y+1+u_Perm[Z+1]]] % 12;\r\n    int gi100 = u_Perm[X+1+u_Perm[Y+u_Perm[Z]]] % 12;\r\n    int gi101 = u_Perm[X+1+u_Perm[Y+u_Perm[Z+1]]] % 12;\r\n    int gi110 = u_Perm[X+1+u_Perm[Y+1+u_Perm[Z]]] % 12;\r\n    int gi111 = u_Perm[X+1+u_Perm[Y+1+u_Perm[Z+1]]] % 12;\r\n\r\n    // The gradients of each corner are now:\r\n    // g000 = grad3[gi000];\r\n    // g001 = grad3[gi001];\r\n    // g010 = grad3[gi010];\r\n    // g011 = grad3[gi011];\r\n    // g100 = grad3[gi100];\r\n    // g101 = grad3[gi101];\r\n    // g110 = grad3[gi110];\r\n    // g111 = grad3[gi111];\r\n\r\n    // Calculate noise contributions from each of the eight corners\r\n    float n000= dot(u_Grad3[gi000], vec3(x, y, z));\r\n    float n100= dot(u_Grad3[gi100], vec3(x-1.0, y, z));\r\n    float n010= dot(u_Grad3[gi010], vec3(x, y-1.0, z));\r\n    float n110= dot(u_Grad3[gi110], vec3(x-1.0, y-1.0, z));\r\n    float n001= dot(u_Grad3[gi001], vec3(x, y, z-1.0));\r\n    float n101= dot(u_Grad3[gi101], vec3(x-1.0, y, z-1.0));\r\n    float n011= dot(u_Grad3[gi011], vec3(x, y-1.0, z-1.0));\r\n    float n111= dot(u_Grad3[gi111], vec3(x-1.0, y-1.0, z-1.0));\r\n\r\n    // Compute the fade curve value for each of x, y, z\r\n    float u = fade(x);\r\n    float v = fade(y);\r\n    float w = fade(z);\r\n\r\n    // Interpolate along x the contributions from each of the corners\r\n    float nx00 = mix(n000, n100, u);\r\n    float nx01 = mix(n001, n101, u);\r\n    float nx10 = mix(n010, n110, u);\r\n    float nx11 = mix(n011, n111, u);\r\n\r\n    // Interpolate the four results along y\r\n    float nxy0 = mix(nx00, nx10, v);\r\n    float nxy1 = mix(nx01, nx11, v);\r\n\r\n    // Interpolate the two last results along z\r\n    float nxyz = mix(nxy0, nxy1, w);\r\n    return nxyz;\r\n}\r\n\r\nvoid main()\r\n{\r\n    // Material base color (before shading)\r\n    //vec4 diffuseColor = u_Color;\r\n\r\n    // Calculate the diffuse term for Lambert shading\r\n    float diffuseTerm = dot(normalize(fs_Nor), normalize(fs_LightVec));\r\n    // Avoid negative lighting values\r\n    diffuseTerm = clamp(diffuseTerm, 0.0, 1.0);\r\n\r\n    float ambientTerm = 0.2;\r\n\r\n    float lightIntensity = diffuseTerm + ambientTerm;   //Add a small float value to the color multiplier\r\n                                                        //to simulate ambient lighting. This ensures that faces that are not\r\n                                                        //lit by our point light are not completely black.\r\n\r\n\r\n    float specularTerm = 0.0;\r\n    vec3 refDir = reflect(normalize(eyePosition - fs_mPos.xyz), normalize(fs_Nor.xyz));\r\n\r\n    if(dot(normalize(fs_Nor.xyz), normalize(fs_LightVec.xyz)) > 0.0){\r\n        float specularPower = 8.0;\r\n        specularTerm = pow(dot(refDir, normalize(fs_LightVec.xyz)), specularPower);\r\n    }\r\n\r\n    float perlin = noise3d(6.0 * abs(sin(u_Timer))* refDir.x, 5.6 * refDir.y, 7.7 * refDir.z);\r\n\r\n    // use absolute style perlin here\r\n    vec3 color = vec3(1.0) - vec3(abs(perlin));\r\n\r\n    out_Col = vec4(vec3(specularTerm) + vec3(1.2 * color.r, 0.215 - 0.1 * cos(u_Timer), 0.3312) * lightIntensity, 1.0);\r\n}\r\n"
+
+/***/ }),
+/* 71 */
+/***/ (function(module, exports) {
+
+module.exports = "#version 300 es\r\n\r\nin vec4 vs_Pos;\r\n\r\nout vec2 fs_UV;\r\n\r\nvoid main() {\r\n    gl_Position = vec4(vs_Pos.xy, 0.99, 1.0);\r\n\r\n    fs_UV = vs_Pos.xy * 0.5 + 0.5;\r\n}"
+
+/***/ }),
+/* 72 */
+/***/ (function(module, exports) {
+
+module.exports = "#version 300 es\nprecision highp float;\n\nuniform vec2 u_Dimensions;\nuniform float u_Timer;\n\nuniform int u_GridSize;\n\n\n\nin vec2 fs_UV;\n\nout vec4 out_Col; \n\nuniform sampler2D u_RenderedTexture;\n\nconst vec3 a = vec3(0.4, 0.5, 0.8);\nconst vec3 b = vec3(0.2, 0.4, 0.2);\nconst vec3 c = vec3(1.0, 1.0, 2.0);\nconst vec3 d = vec3(0.25, 0.25, 0.0);\n\nconst vec3 e = vec3(0.2, 0.5, 0.8);\nconst vec3 f = vec3(0.2, 0.25, 0.5);\nconst vec3 g = vec3(1.0, 1.0, 0.1);\nconst vec3 h = vec3(0.0, 0.8, 0.2);\n\n// rendering params\nconst float sphsize=.3; // planet size\nconst float dist=.27; // distance for glow and distortion\nconst float perturb=.3; // distortion amount of the flow around the planet\n//const float displacement=.015; // hot air effect\nconst float windspeed=.4; // speed of wind flow\nconst float steps=15.; // number of steps for the volumetric rendering\nconst float stepsize=.025; \nconst float brightness=.43;\n//const vec3 planetcolor=vec3(0.55,0.4,0.3);\nconst float fade=.005; //fade by distance\nconst float glow=3.5; // glow amount, mainly on hit side\nconst int iterations=14; \nconst float fractparam=.7;\nconst vec3 offset=vec3(1.5,2.,-1.5);\n\n\n// -------------------------- Perlin ------------------------------\n\n// Return a random direction in a circle\nvec2 random2( vec2 p ) {\n    return normalize(2.0 * fract(sin(vec2(dot(p,vec2(127.1,311.7)),dot(p,vec2(269.5,183.3))))*43758.5453) - 1.0);\n}\n\nvec3 Gradient(float t)\n{\n    return a + b * cos(6.2831 * (c * t + d));\n}\n\nvec3 Gradient2(float t)\n{\n    return e + f * cos(6.2831 * (g * t + h));\n}\n\nfloat surflet(vec2 P, vec2 gridPoint)\n{\n    // Compute falloff function by converting linear distance to a polynomial\n    float distX = abs(P.x - gridPoint.x);\n    float distY = abs(P.y - gridPoint.y);\n    float tX = 1.0 - 6.0 * pow(distX, 5.0) + 15.0 * pow(distX, 4.0) - 10.0 * pow(distX, 3.0);\n    float tY = 1.0 - 6.0 * pow(distY, 5.0) + 15.0 * pow(distY, 4.0) - 10.0 * pow(distY, 3.0);\n\n    // Get the random vector for the grid point\n    vec2 gradient = random2(gridPoint);\n    // Get the vector from the grid point to P\n    vec2 diff = P - gridPoint;\n    // Get the value of our height field by dotting grid->P with our gradient\n    float height = dot(diff, gradient);\n    // Scale our height field (i.e. reduce it) by our polynomial falloff function\n    return height * tX * tY;\n}\n\nfloat PerlinNoise(vec2 uv)\n{\n    // Tile the space\n    vec2 uvXLYL = floor(uv);\n    vec2 uvXHYL = uvXLYL + vec2(1,0);\n    vec2 uvXHYH = uvXLYL + vec2(1,1);\n    vec2 uvXLYH = uvXLYL + vec2(0,1);\n\n    return surflet(uv, uvXLYL) + surflet(uv, uvXHYL) + surflet(uv, uvXHYH) + surflet(uv, uvXLYH);\n}\n\nvec2 PixelToGrid(vec2 pixel, float size)\n{\n    vec2 uv = pixel.xy / u_Dimensions.xy;\n    // Account for aspect ratio\n    uv.x = uv.x * float(u_Dimensions.x) / float(u_Dimensions.y);\n    // Determine number of cells (NxN)\n    uv *= size;\n\n    return uv;\n}\n\n\nfloat basic_perlin(){\n    // Basic Perlin noise\n    vec2 uv = PixelToGrid(fs_UV, 4.0);\n\n    float perlin = PerlinNoise(uv);\n    return (perlin + 1.0) * 0.5;\n}\n\nfloat summed_perlin(vec2 input_uv){\n\n    float summedNoise = 0.0;\n    float amplitude = 0.5;\n    for(int i = 2; i <= 32; i *= 2) {\n        vec2 uv = PixelToGrid(input_uv, float(i));\n\n        uv = vec2(cos(3.14159/3.0 * float(i)) * uv.x - sin(3.14159/3.0 * float(i)) * uv.y, sin(3.14159/3.0 * float(i)) * uv.x + cos(3.14159/3.0 * float(i)) * uv.y);\n        float perlin = abs(PerlinNoise(uv));// * amplitude;\n        summedNoise += perlin * amplitude;\n        amplitude *= 0.5;\n    }\n\n    return summedNoise;\n}\n\nfloat absolute_perlin(vec2 input_uv){\n    vec2 uv = PixelToGrid(input_uv, 10.0);\n\n    float perlin = PerlinNoise(uv);\n    return 1.0 - abs(perlin);\n}\n\nfloat recursive1_perlin(){\n    float time = u_Timer * 10.0;\n\n    vec2 planet = vec2(cos(time * 0.01 * 3.14159), sin(time * 0.01 * 3.14159)) * 2.0 + vec2(4.0);\n    \n    vec2 uv = PixelToGrid(fs_UV, 10.0);\n\n    vec2 planetDiff = planet - uv;\n    float len = length(planetDiff);\n    vec2 offset = vec2(PerlinNoise(uv + time * 0.01), PerlinNoise(uv + vec2(5.2, 1.3)));\n    if(len < 1.0) {\n        offset += planetDiff * (1.0 - len);\n    }\n    float perlin = PerlinNoise(uv + offset);\n    \n    return (perlin + 1.0) * 0.5;\n}\n\n// --------------------------------------------------------------\n\nfloat wind(vec3 p) {\n    float iTime = u_Timer;\n\n\tfloat d = max(0., dist-max(0.,length(p)-sphsize)/sphsize)/dist; // for distortion and glow area\n\tfloat x = max(0.2, p.x * 2.); // to increase glow on left side\n\tp.y *= 1.+max(0.,-p.x - sphsize*.25) * 1.5; // left side distortion (cheesy)\n\tp-=d*normalize(p)*perturb; // spheric distortion of flow\n\tp+=vec3((iTime/4.0)*windspeed,0.,0.); // flow movement\n\tp=abs(fract((p+offset)*.1)-.5); // tile folding \n\tfor (int i=0; i<iterations; i++) {  \n\t\tp=abs(p)/dot(p,p)-fractparam; // the magic formula for the hot flow\n\t}\n\treturn length(p)*(1.+d*glow*x)+d*glow*x; // return the result with glow applied\n}\n\n\nfloat snow(vec2 uv)\n{           \n        float iTime = u_Timer;\n\n        vec3 dir=vec3(-uv,1.0);\n\t\t//vec3 tex3=vec3(0.0);\n        float tex3_fromPerlin = 0.0;\n\n        vec3 from = vec3(0.0,0.0,1.0);\n\n        float v=0., l=-0.0001;\n        float t=0.1*windspeed*0.2;\n\n        for (float r=8.0; r<steps; r++) {\n            vec3 p=from+r*dir*stepsize;\n            v+=min(50.,wind(p))*max(0.,1.-r*fade);\n            \n            vec2 pol = vec2((p.x+iTime/6.0),(p.y));\n            \n            //tex3 = vec3(texture(iChannel0, vec2(pol.x,pol.y)*2.5));\n            tex3_fromPerlin = absolute_perlin(vec2(pol.x, pol.y) * 2.5);\n        }\n\n        v/=steps; v*=brightness;\n        \n    \n        return v*(tex3_fromPerlin*(2.5+sin(iTime)));\n}\n\n\n\nvoid main()\n{\n    vec2 p = 2.0 * fs_UV - vec2(1.0, 1.0);\n    float iTime = u_Timer;\n\n     // camera movement\t\n    float an = 1.5*1.;\n\tvec3 ro = vec3( 2.5*cos(an), 0., 2.5*sin(an) );\n    vec3 ta = vec3( 0.0, 0.0, 0.0 );\n    // camera matrix\n    vec3 ww = normalize( ta - ro );\n    vec3 uu = normalize( cross(ww,vec3(sin(iTime)/8.,1.0,0.0) ) );\n    vec3 vv = normalize( cross(uu,ww));\n\t// create view ray\n\tvec3 rd = normalize( p.x*uu + p.y*vv + 1.5*ww );\n\n\t\n    // vec3 tex3 =  vec3(summed_perlin(rd.xy+sin(iTime)));\n    // tex3 =  vec3(summed_perlin(vec2(rd.x+(iTime/4.), rd.y)));\n\n\t// raytrace-plane\n    float t = 1e4;\n    //float t = recursive1_perlin();\n\n//  t = RSph(vec3(0.,0.,0.0), 1.40 - ((tex3.r) * 0.05), ro, rd);\n//\tt = cube(ro, rd, vec3(0.01,0.01,0.1), vec3(1.0,1.0,1.0-tex3.r));\n\n\tvec3 nml = normalize(vec3(0.0) - (ro+rd*t));\n    \n    // shading/lighting\t\n\tvec3 col = vec3(0.0);\n\t\n//\t  col = background(iTime, rd) * vec3(0.9, 0.8, 1.0) * 2.6;\n//    col -= background(iTime - 2.0, rd - vec3(0,-0.03,0.0)) * vec3(0.9, 0.8, 1.0);\n//    col = sqrt( col );\n    \n    rd = reflect(-rd, nml);\n    \n   \t// get ray dir\t\n\tvec2 uv  = nml.xy;\n\tvec3 dir = vec3(uv, 1.);\n    \n    float snoise = (snow(vec2(uv.x,uv.y)));\n    \n    if((iTime > 30.0)){\n    \tcol.b += snoise * abs(cos(iTime / 15.0)/1.0);\n    }\n    else{\n        col += snoise * abs(sin(iTime / 5.0)/2.5);\n    }    \n    \n    \n    if (length(nml.xy) < 0.95)\n    {\n        if (t > 10.01)\n        {\n            col = vec3(0.0,0.0,0.0);\n        }\n    }\n\n    if (t < 10.0+sin(iTime))\n    {\n    \tcol.r += snoise;\n    }\n    \n    if (length(nml.xy+vec2(-0.5,0.0)*(snoise/1.0)) < 0.55)\n    {\n        if (t > 2.71)\n        {\n            col.r = snoise*2.0;\n        }\n    }\n    \n    out_Col = vec4(col, 1.0);\n\n   // out_Col = vec4(vec3(summed_perlin()), 1.0);\n\n   //out_Col = vec4(fs_UV, 0.0, 1.0);\n}\n"
 
 /***/ })
 /******/ ]);
