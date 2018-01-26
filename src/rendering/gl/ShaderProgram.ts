@@ -175,6 +175,16 @@ class ShaderProgram {
     }
   }
 
+  setTimeScale(scale: number){
+    this.use();
+
+    if(this.unifTimeScale !== -1){
+      gl.uniform1f(this.unifTimeScale, scale);
+    }
+  }
+
+
+
   draw(d: Drawable) {
     this.use();
 

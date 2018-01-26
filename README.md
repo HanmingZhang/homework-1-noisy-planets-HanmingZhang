@@ -7,15 +7,15 @@
 
 - screenshot
 
-  ![](/img/1_1.jpg)
+  ![](/img/1_2.jpg)
 
-  geometry : two icospheres
+  geometry : two icospheres(base + mountains)
   
   shading : Lambert / Blinn-Phong
 
-  noise : 3D classic Perlin noise / snow noise / wind effect
+  noise : 3D classic Perlin noise / snow noise / wind effect(background)
 
-  GUI : tesselation level / speed / noise scale
+  GUI : tesselation level / speed / noise scale / dynamically move terrain or not
 
 - [Demo Link]()
 

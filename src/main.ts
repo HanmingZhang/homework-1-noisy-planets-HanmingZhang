@@ -23,9 +23,10 @@ import ShaderProgram, {Shader} from './rendering/gl/ShaderProgram';
 // Define an object with application parameters and button callbacks
 // This will be referred to by dat.GUI's functions that add GUI elements.
 const controls = {
-  tesselations : 5,
+  tesselations : 7,
   speed : 1.0,
   noiseScale : 1.2,
+  terrainMove : false,
   isDebugPerlin: false,
 
   //geometry : ICOSPHERE,
@@ -45,10 +46,10 @@ let isDebugPerlin: boolean;
 
 
 function loadScene() {
-  icosphere = new Icosphere(vec3.fromValues(0, 0, 0), 1, controls.tesselations);
+  icosphere = new Icosphere(vec3.fromValues(0, 0, 0), 1.5, controls.tesselations);
   icosphere.create();
 
-  icosphere_out = new Icosphere(vec3.fromValues(0, 0, 0), 0.7, controls.tesselations);
+  icosphere_out = new Icosphere(vec3.fromValues(0, 0, 0), 1.2, controls.tesselations);
   icosphere_out.create();
 
   square = new Square(vec3.fromValues(0, 0, 0));
@@ -135,6 +136,9 @@ function main() {
   renderer.setClearColor(0.2, 0.2, 0.2, 1);
   gl.enable(gl.DEPTH_TEST);
 
+  gl.enable(gl.BLEND);
+  gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+
   // // setup lambert shader
   // const lambert = new ShaderProgram([
   //   new Shader(gl.VERTEX_SHADER, require('./shaders/lambert-vert.glsl')),
@@ -159,13 +163,13 @@ function main() {
     new Shader(gl.VERTEX_SHADER, require('./shaders/noisy-planet.vert.glsl')),
     new Shader(gl.FRAGMENT_SHADER, require('./shaders/noisy-planet-base.frag.glsl')),
   ]);
-  planet.setNoise3d(0.0, 0.3);
+  planet.setNoise3d(0.0, 0.1);
 
   const planet_out = new ShaderProgram([
     new Shader(gl.VERTEX_SHADER, require('./shaders/noisy-planet.vert.glsl')),
     new Shader(gl.FRAGMENT_SHADER, require('./shaders/noisy-planet-cover.frag.glsl')),
   ]);
-  planet_out.setNoise3d(0.2, noiseScale);
+  planet_out.setNoise3d(0.0, noiseScale);
   planet_out.setGeometryColor(vec4.fromValues(0.0, 1.0, 0.0, 1.0));    
   
   // setup background shader
@@ -190,6 +194,16 @@ function main() {
     planet_out.setNoiseScale(controls.noiseScale);
   }
   gui.add(controls, 'noiseScale', 0.8, 2.0).step(0.2).onChange(setNoiseScale);
+
+  function setTimeScale(){
+    if(controls.terrainMove){
+      planet_out.setTimeScale(0.2);
+    }
+    else{
+      planet_out.setTimeScale(0.0);
+    }
+  }
+  gui.add(controls, 'terrainMove').onChange(setTimeScale);
 
   function setDebugPerlin(){
     isDebugPerlin = controls.isDebugPerlin;
@@ -241,14 +255,14 @@ function main() {
       perlin.setTimer(speed * timer / 50.0);  
       renderer.render(camera, perlin, [
         square,
-      ]);
+      ], 0);
     }
     else{
       // background
       background.setTimer(speed * timer / 500.0);
       renderer.render(camera, background, [
         square,
-      ]);
+      ], 0);
 
       // base sphere
       // shaderToUse.setTimer(timer / 50.0);  
@@ -258,13 +272,13 @@ function main() {
       planet.setTimer(speed * timer / 50.0);  
       renderer.render(camera, planet, [
         icosphere,
-      ]);
+      ], speed * timer / 350.0);
 
       // outer cover sphere
-      planet_out.setTimer(speed * timer / 200.0);    
+      planet_out.setTimer(speed * timer / 200.0);       
       renderer.render(camera, planet_out, [
         icosphere_out,
-      ]);
+      ], speed * timer / 350.0);
     }
 
     stats.end();

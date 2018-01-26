@@ -28,17 +28,17 @@ in vec4 vs_Nor;             // The array of vertex normals passed to the shader
 
 in vec4 vs_Col;             // The array of vertex colors passed to the shader.
 
-out vec4 fs_Nor;            // The array of normals that has been transformed by u_ModelInvTr. This is implicitly passed to the fragment shader.
+out vec3 fs_Nor;            // The array of normals that has been transformed by u_ModelInvTr. This is implicitly passed to the fragment shader.
 out vec4 fs_LightVec;       // The direction in which our virtual light lies, relative to each vertex. This is implicitly passed to the fragment shader.
 out vec4 fs_Col;            // The color of each vertex. This is implicitly passed to the fragment shader.
 
-out vec4 fs_mPos;           // vertex model space (world space) position
+out vec4 fs_mPos;           // vertex model space (world  space) position
 
 
 const vec4 lightPos = vec4(5, 5, 3, 1); //The position of our virtual light, which is used to compute the shading of
                                         //the geometry in the fragment shader.
 
-
+const float eplison = 0.05;
 
 
 float fade(float t) {
@@ -138,21 +138,7 @@ float Falloff_Xsq_C1( float xsq ) { xsq = 1.0 - xsq; return xsq*xsq; }
 float Falloff_Xsq_C2( float xsq ) { xsq = 1.0 - xsq; return xsq*xsq*xsq; }
  
 
-
-
-void main()
-{
-    fs_Col = vs_Col;                         // Pass the vertex colors to the fragment shader for interpolation
-
-    mat3 invTranspose = mat3(u_ModelInvTr);
-    fs_Nor = vec4(invTranspose * vec3(vs_Nor), 0);          // Pass the vertex normals to the fragment shader for interpolation.
-                                                            // Transform the geometry's normals by the inverse transpose of the
-                                                            // model matrix. This is necessary to ensure the normals remain
-                                                            // perpendicular to the surface after the surface is transformed by
-                                                            // the model matrix.
-
-    
-
+float getSummed3DPerlin(vec3 input_vec3){
     // Generate 3d perlin noise
     float noiseScale = 0.5;
 
@@ -160,7 +146,7 @@ void main()
     float amplitude = 0.6;
     for(int i = 2; i <= 16; i *= 2) {
 
-        vec3 xyz = float(i) * vs_Pos.xyz;
+        vec3 xyz = float(i) * input_vec3;
 
         xyz = vec3(cos(3.14159/3.0 * float(i)) * xyz.x - sin(3.14159/3.0 * float(i)) * xyz.y + cos(3.14159/3.0 * float(i)) * xyz.z, 
                    sin(3.14159/3.0 * float(i)) * xyz.x + cos(3.14159/3.0 * float(i)) * xyz.y - sin(3.14159/3.0 * float(i)) * xyz.z,
@@ -176,11 +162,38 @@ void main()
         amplitude *= 0.5;
     }
 
+    return summedNoise;
+}
+
+
+
+void main()
+{
+    // fs_Col = vs_Col;                         // Pass the vertex colors to the fragment shader for interpolation
+
+    // mat3 invTranspose = mat3(u_ModelInvTr);
+    // fs_Nor = vec4(invTranspose * vec3(vs_Nor), 0);          // Pass the vertex normals to the fragment shader for interpolation.
+                                                            // Transform the geometry's normals by the inverse transpose of the
+                                                            // model matrix. This is necessary to ensure the normals remain
+                                                            // perpendicular to the surface after the surface is transformed by
+                                                            // the model matrix.
+
+    
+
+    
+    float summedNoise = getSummed3DPerlin(vs_Pos.xyz);
+
+    fs_Nor = vec3(summedNoise - getSummed3DPerlin(vs_Pos.xyz + vec3(eplison, 0.0, 0.0)),
+                  summedNoise - getSummed3DPerlin(vs_Pos.xyz + vec3(0.0, eplison, 0.0)),
+                  summedNoise - getSummed3DPerlin(vs_Pos.xyz + vec3(0.0, 0.0, eplison)));
+
+    fs_Nor = normalize(fs_Nor);
+
     // summedNoise = Interpolation_C3(summedNoise);
 
     vec4 modelposition = u_Model * (vs_Pos + u_FinalNoiseScale * summedNoise * vs_Nor);   // Temporarily store the transformed vertex positions for use below
 
-    fs_mPos = modelposition;
+    fs_mPos = u_ViewProj * modelposition;
 
     fs_LightVec = lightPos - modelposition;  // Compute the direction in which the light source lies
 

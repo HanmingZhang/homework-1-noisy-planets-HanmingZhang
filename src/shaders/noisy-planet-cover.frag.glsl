@@ -14,9 +14,9 @@ const vec3 eyePosition = vec3(0.0, 0.0, 5.0);
 
 // These are the interpolated values out of the rasterizer, so you can't know
 // their specific values without knowing the vertices that contributed to them
-in vec4 fs_Nor;
+in vec3 fs_Nor;
 in vec4 fs_LightVec;
-in vec4 fs_Col;
+//in vec4 fs_Col;
 in vec4 fs_mPos;
 
 out vec4 out_Col; // This is the final output color that you will see on your
@@ -27,6 +27,11 @@ out vec4 out_Col; // This is the final output color that you will see on your
 float fade(float t) {
     return t*t*t*(t*(t*6.0 - 15.0) + 10.0);
 }
+
+//    Faster than Perlin Quintic.  Not quite as good shape.
+//    7x^3-7x^4+x^7
+float Interpolation_C2_Fast( float x ) { float x3 = x*x*x; return ( 7.0 + ( x3 - 7.0 ) * x ) * x3; }
+
 
 // Classic Perlin noise, 3D version
 // refer from paper http://webstaff.itn.liu.se/~stegu/simplexnoise/simplexnoise.pdf
@@ -102,7 +107,11 @@ void main()
     //vec4 diffuseColor = u_Color;
 
     // Calculate the diffuse term for Lambert shading
-    float diffuseTerm = dot(normalize(fs_Nor), normalize(fs_LightVec));
+    // vec3 X = dFdx(fs_mPos.xyz);
+    // vec3 Y = dFdy(fs_mPos.xyz);
+    // vec3 normal=normalize(cross(X,Y));
+
+    float diffuseTerm = dot(normalize(fs_Nor), normalize(fs_LightVec.xyz));
     // Avoid negative lighting values
     diffuseTerm = clamp(diffuseTerm, 0.0, 1.0);
 
@@ -113,6 +122,7 @@ void main()
                                                         //lit by our point light are not completely black.
 
 
+    // calculate specular ter
     float specularTerm = 0.0;
     vec3 refDir = reflect(normalize(eyePosition - fs_mPos.xyz), normalize(fs_Nor.xyz));
 
@@ -121,10 +131,15 @@ void main()
         specularTerm = pow(dot(refDir, normalize(fs_LightVec.xyz)), specularPower);
     }
 
-    float perlin = noise3d(6.0 * abs(sin(u_Timer))* refDir.x, 5.6 * refDir.y, 7.7 * refDir.z);
+    float perlin = noise3d(3.0 * abs(sin(u_Timer * 5.0))* refDir.x, 2.6 * refDir.y, 3.7 * refDir.z);
 
     // use absolute style perlin here
     vec3 color = vec3(1.0) - vec3(abs(perlin));
 
-    out_Col = vec4(vec3(specularTerm) + vec3(1.2 * color.r, 0.215 - 0.1 * cos(u_Timer), 0.3312) * lightIntensity, 1.0);
+    float alpha = color.r;
+    if(alpha < 0.164){
+        alpha = 0.01;
+    }
+
+    out_Col = vec4(vec3(0.7 * specularTerm)  + vec3(1.2 * color.r, 0.215 - 0.1 * cos(u_Timer), 0.3312) * lightIntensity, 1.0);
 }

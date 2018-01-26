@@ -23,9 +23,9 @@ const vec3 h = vec3(0.0, 0.8, 0.2);
 
 // These are the interpolated values out of the rasterizer, so you can't know
 // their specific values without knowing the vertices that contributed to them
-in vec4 fs_Nor;
+in vec3 fs_Nor;
 in vec4 fs_LightVec;
-in vec4 fs_Col;
+//in vec4 fs_Col;
 in vec4 fs_mPos;
 
 out vec4 out_Col; // This is the final output color that you will see on your
@@ -179,12 +179,30 @@ void main()
     // Material base color (before shading)
     //vec4 diffuseColor = u_Color;
 
+    vec3 inputVec3 = 5.0 * fs_mPos.xyz;
+
+    vec3 offset1 = vec3(noise3d(inputVec3 + vec3(cos(u_Timer * 3.14159 * 0.01))), noise3d(inputVec3 + vec3(5.2, 1.3, 2.8)), noise3d(inputVec3 + vec3(sin(u_Timer * 3.14159 * 0.01))));
+    vec3 offset2 = vec3(noise3d(inputVec3 + vec3(1.7, 9.2, 5.6)), noise3d(inputVec3 + vec3(sin(u_Timer * 3.14159 * 0.1)) + vec3(8.3, 1.2, 2.8)), noise3d(inputVec3));
+    float perlin = noise3d(offset1 + offset2);
+    vec3 baseGradient = Gradient(perlin);
+    baseGradient = mix(baseGradient, vec3(perlin), length(offset1));
+    vec3 color = baseGradient;
+    color.r += 0.25 + 1.52 * noise3d(vec3(offset1.x, offset2.y, offset1.z));
+    color.g *= 0.06;
+    color.b *= 0.2 * sin(u_Timer * 3.0);
+
+
     // Calculate the diffuse term for Lambert shading
-    float diffuseTerm = dot(normalize(fs_Nor), normalize(fs_LightVec));
+    // vec3 X = dFdx(fs_mPos.xyz);
+    // vec3 Y = dFdy(fs_mPos.xyz);
+    // vec3 normal=normalize(cross(X,Y));
+
+    float diffuseTerm = dot(normalize(fs_Nor), normalize(fs_LightVec.xyz));
+    
     // Avoid negative lighting values
     diffuseTerm = clamp(diffuseTerm, 0.0, 1.0);
 
-    float ambientTerm = 0.2 + noise3d(fs_mPos.xyz);
+    float ambientTerm = 0.06;
 
     float lightIntensity = diffuseTerm + ambientTerm;   //Add a small float value to the color multiplier
                                                         //to simulate ambient lighting. This ensures that faces that are not
@@ -192,17 +210,7 @@ void main()
 
 
 
-    vec3 inputVec3 = 5.0 * fs_mPos.xyz;
-
-    vec3 offset1 = vec3(noise3d(inputVec3 + vec3(cos(u_Timer * 3.14159 * 0.01))), noise3d(inputVec3 + vec3(5.2, 1.3, 2.8)), noise3d(inputVec3 + vec3(sin(u_Timer * 3.14159 * 0.01))));
-    vec3 offset2 = vec3(noise3d(inputVec3 + offset1 + vec3(1.7, 9.2, 5.6)), noise3d(inputVec3 + vec3(sin(u_Timer * 3.14159 * 0.01)) + offset1 + vec3(8.3, 1.2, 2.8)), noise3d(inputVec3));
-    float perlin = noise3d(offset1 + offset2);
-    vec3 baseGradient = Gradient(perlin);
-    baseGradient = mix(baseGradient, vec3(perlin), length(offset1));
-    vec3 color = baseGradient;
-    color.r += 0.25 + 1.52 * noise3d(vec3(offset1.x, offset2.y, offset1.z));
-    color.g *= 0.06;
-    color.b *= 0.02 * sin(u_Timer);
 
     out_Col = vec4(color * lightIntensity, 1.0);
+    //out_Col = vec4(vec3(0.8, 0.1, 0.1) * lightIntensity, 1.0);
 }
